@@ -9,3 +9,8 @@
 > This is not a day's job. Relax but be consistent. Slowly but sure, we will get there
 
 _I'm out @6:24pm_
+
+---
+# 2nd October 2022
+- [x] connect frontend and backend
+- [] collect data from frontend to backend
