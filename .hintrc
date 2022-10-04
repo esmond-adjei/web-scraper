@@ -3,6 +3,6 @@
     "development"
   ],
   "hints": {
-    "axe/forms": "off"
+    "axe/forms": "on"
   }
 }
