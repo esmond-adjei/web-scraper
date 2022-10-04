@@ -18,17 +18,16 @@
             <p>searching...</p>
         </div>
         <div class="results">
-            <p>Resaults Found: <b>{{data}}</b></p>
+        {% for movie, links in scraped_data.items %}   
             <div class="data">
+                <p style="text-align: center;"><b>{{movie}}</b></p>
                 <ol class="data-items">
-                    <li class="item-1">item-1</li><hr>
-                    <li class="item-2">item-2</li><hr>
-                    <li class="item-3">item-3</li><hr>
-                    <li class="item-4">item-4</li><hr>
-                    <li class="item-5">item-5</li><hr>
-                    <li class="item-6">item-6</li><hr>
+                    {% for link in links %}
+                    <li><a href={{link}}> {{movie}} </a></li>
+                    {% endfor %}
                 </ol>
             </div>
+        {% endfor %}
         </div>
         <button><a href="/index.html">Save</a></button>
     </div>

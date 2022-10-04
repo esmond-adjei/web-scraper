@@ -39,9 +39,12 @@ def progress(request):
         except:
             print("COULD NOT OBTAIN IMAGE FILE")
     imgTag = f'''style="background-image: url('./images/{imgKeyword.replace(' ', '_')}.jpg');"'''
-    print("========== data ============\n", scraped_data)
+    print("========== data ============\n")
+    print(type(scraped_data))
+    for k,v in scraped_data.items():
+        print('>>',k,'\n\t',v)
     
-    return render(request, 'progress.html')
+    return render(request, 'progress.html', {'scraped_data': scraped_data})
 
 #     html_title = f'''<!DOCTYPE html>\n<html lang="en">
 # <head>\n<meta charset="UTF-8">\n<meta http-equiv="X-UA-Compatible" content="IE=edge">
