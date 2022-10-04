@@ -35,14 +35,15 @@ h1{
 }
 /* ---------- FRAMES/STRUCTURE ---------------- */
 .content {
-	width: 400px;
+	width: 500px;
 	border-radius: 5px;
 	margin: auto;
 	margin-top: 7rem;
     padding: 25px;
-	box-shadow: 1px 3px 10px var(--shadow-color);
-    background: var(--primary);
-    border: solid 2px var(--blue);
+	/* box-shadow: 1px 3px 10px var(--shadow-color); */
+    background: inherit; 
+    /* var(--primary); */
+    /* border: solid 2px var(--blue); */
 	/* overflow: hidden; */
 }
 form{
@@ -54,6 +55,9 @@ form > * {
 .search{
 	display: flex;
 	justify-content: center;
+    border-radius: 10px;
+    border: 1px solid var(--dark-blue);
+    /* box-shadow: 2px 2px 20px var(--shadow-color); */
 }
 
 /*---------------- ELEMENTS ----------------------*/
@@ -67,7 +71,7 @@ input[type=text] {
     color: var(--dark-blue);
 	border: 2px solid var(--blue);
     border-right-width: 0;
-	border-radius: 7px 0 0 7px;
+	/* border-radius: 7px 0 0 7px; */
 	font-size: 1rem;
 	width: 95%;
     height: 34px;
@@ -76,6 +80,10 @@ input[type=text] {
 	color: var(--dark-blue);
 	display: flex;
 	justify-content: center;
+
+    outline: none;
+    border: none;
+    background-color: transparent;
 }
 /* haven't yet figured out how to take away the dark defualt border when it is active */
 input[type=text]:active{
@@ -87,28 +95,37 @@ button {
     font-size: 0.75rem;
     color: var(--primary);
     background: var(--blue);
-    border-radius: 0 7px 7px 0;
+    border-radius: 0 9px 9px 0;
     width: 75px;
     height: 34px;
-    border: 2px solid var(--blue);
-    border-left-width: 0;
+    /* border: 2px solid var(--blue); */
+    border: none;
+    /* border-left-width: 0; */
     /* padding: 10px; */
 }
 button:active{
     color: var(--blue);
-    background: var(--primary);
+    background: var(--lighter-blue);
 }
 
 select[name=movie-type]{
-    padding-right: 50px;
-    border: 2px solid var(--blue);
+    padding: 3px 10px;
+    border: 1px solid var(--blue);
     border-radius: 7px;
+    outline: none;
 }
 /* haven't yet figured out how to take away the dark defualt border when it is active */
 /* select[name=movie-type]:focus {
     border-style: 1px solid red;
 } */
+.opt{
+    margin-top: 20px;
+    border: solid 1px var(--dark-blue);
+    border-radius: 10px;
+    width: fit-content;
+    padding: 3px 3px;
+}
 span.img-dwd{
-    margin-left: 40px;
+    margin-left: 50px;
     font-size: 0.75rem;
 }
