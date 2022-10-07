@@ -16,6 +16,7 @@ def recursiveScrape(list_of_links, keyword):
     """
     # movieLinksFound, downloadLinks,  = '',''
     scraped_data = {}
+    movieTitle = ''
     count, count2, season = 1,1,1
     
     if not list_of_links:   print("NoneType NoneType NoneType")
