@@ -28,6 +28,6 @@ UP NEXT ...
 
 ---
 # 7th October, 2022
-### Saving scraped results in `model`
+### Saving scraped results in `model` 
 - [] Define data Items
 - []
