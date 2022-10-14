@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .movie import *
-from .scrapeTools import *
+from .scrapeTools import IMDB
 
 # Create your views here.
 def index(request):
@@ -28,7 +28,6 @@ def progress(request):
 
     # option to download image
     print('='*50)
-    # image_option = input("Continue to download movie image? [y/n]\nIf yes, add a search keyword or nothing to use default keyword: ").lower().split()
     if ' '.join(image_option[1:]) == '':
         imgKeyword = movieKeyword
     else: imgKeyword = ' '.join(image_option[1:])
