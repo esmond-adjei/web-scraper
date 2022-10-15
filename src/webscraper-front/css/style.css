@@ -1,0 +1,62 @@
+/* ---------- GLOBALS ---------------- */
+* {
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+body {
+  font-family: Georgia, "Times New Roman", Times, serif;
+}
+
+/* just for testing */
+.profile > div {
+  border: solid 2px rgb(161, 211, 25);
+}
+
+.content {
+  width: 500px;
+  height: fit-content;
+  overflow: hidden;
+  margin-left: auto;
+  border-radius: 26px;
+  box-shadow: 1px 3px 10px #615f5f;
+}
+
+.header, .main, .footer {
+  border: 2px solid rgb(161, 211, 25);
+}
+
+.main, .footer {
+  padding: 25px;
+}
+
+.profile {
+  color: #f1f1f1;
+  display: flex;
+  justify-content: space-between;
+  background-color: #790f0f;
+  padding: 25px;
+}
+.profile-details {
+  width: fit-content;
+  display: flex;
+  align-items: center;
+}
+.profile-details img {
+  max-width: 50px;
+  max-height: 50px;
+  border-radius: 50px;
+  border: 3px solid white;
+}
+.profile-details div {
+  margin: 0 10px;
+}
+.profile .settings {
+  display: inline-grid;
+}
+
+/*# sourceMappingURL=style.css.map */

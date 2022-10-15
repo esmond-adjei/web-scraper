@@ -1,0 +1,61 @@
+@import 'config';
+
+* {
+    box-sizing: border-box;
+}
+a {
+    text-decoration: none;
+    color: inherit;
+}
+body{
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+/* just for testing */
+.profile > div{
+    border: solid 2px $test-color; 
+} 
+// --------------------------------------------------
+.content {
+    width: 500px;
+    height: fit-content;
+    overflow: hidden;
+    margin-left: auto;
+    border-radius: 26px;
+    box-shadow: 1px 3px 10px $shadow-color;
+}
+.header, .main, .footer {
+    border: 2px solid $test-color;
+}
+.main, .footer {
+    padding: 25px;
+}
+
+.profile{
+    color: $light;
+    display: flex;
+    justify-content: space-between;
+    background-color: $wine;
+    padding: 25px;
+
+    &-details{
+        width: fit-content;
+        display: flex;
+        align-items: center;
+        img {
+            max-width: 50px;
+            max-height: 50px;
+            border-radius: 50px;
+            border: 3px solid white;
+        }
+        div {
+            margin: 0 10px;
+        }
+    }
+    .settings {
+        display: inline-grid;
+    }
+}
+
+
+// --------------------------------------------------
