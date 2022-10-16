@@ -12,20 +12,26 @@ body{
 }
 
 /* just for testing */
-.profile > div{
-    border: solid 2px $test-color; 
-} 
+// .header, .main, .footer {
+//     border: 2px solid $test-color;
+// }
+// .profile > div{
+//     border: solid 2px $test-color; 
+// } 
+hr {
+    margin: 0;
+    border-style: none;
+    border: 1px solid $light-wine;
+}
 // --------------------------------------------------
 .content {
     width: 500px;
     height: fit-content;
     overflow: hidden;
-    margin-left: auto;
+    margin: auto;
+    margin-top: 50px;
     border-radius: 26px;
     box-shadow: 1px 3px 10px $shadow-color;
-}
-.header, .main, .footer {
-    border: 2px solid $test-color;
 }
 .main, .footer {
     padding: 25px;
@@ -57,5 +63,66 @@ body{
     }
 }
 
+.search-bar {
+    background-color: $wine;
+    
+    form {
+        width: inherit;
+        
+        .search {
+            margin: 15px 130px;
+            background-color: $orange-brown;
+            width: fit-content;
+            border-radius: 26px;
+            border-width: 0px;
+            // overflow: hidden;
+        }
+        
+        input[type="search"]{
+            padding: 5px;
+            border-radius: 26px 0 0 26px;
+            height: 40px;
+            border-style: none;
+            background-color: #eee;
+            color: #333;
+        }
+        
+        input[type="submit"] {
+            height: 40px;
+            background-color: $orange-brown;
+            border-radius:  0 26px 26px 0;
+            margin: 0;
+            border-style: none;
+            color: white;
+        }        
+        
+        .config{
+            width: 500px;
+            padding: 15px 130px;
+            display: flex;
+            background-color: $light-wine;
+            color: white;
+        }
 
+    }
+}
+.main{
+    display: flex;
+    flex-wrap: wrap;
+    .card{
+        margin: 5px 10px;
+        width: 100px;
+        height: 120px;
+        padding: 10px;
+        background-color: $orange-brown;
+        border-radius: 10px;
+        box-shadow: 1px 3px 10px $shadow-color;
+    }
+}
+
+.footer {
+    background-color: $wine;
+    color: white;
+    text-align: center;
+}
 // --------------------------------------------------
