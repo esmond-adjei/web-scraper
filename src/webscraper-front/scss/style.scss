@@ -30,7 +30,7 @@ hr {
     overflow: hidden;
     margin: auto;
     margin-top: 50px;
-    border-radius: 26px;
+    border-radius: 13px;
     box-shadow: 1px 3px 10px $shadow-color;
 }
 .main, .footer {
@@ -97,8 +97,8 @@ hr {
         }        
         
         .config{
-            width: 500px;
-            padding: 15px 130px;
+            // width: 300px;
+            // padding: 15px 130px;
             display: flex;
             background-color: $light-wine;
             color: white;

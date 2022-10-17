@@ -1,1 +1,116 @@
-*{box-sizing:border-box}a{text-decoration:none;color:inherit}body{font-family:Georgia,"Times New Roman",Times,serif}hr{margin:0;border-style:none;border:1px solid #9e2a2a}.content{width:500px;height:-webkit-fit-content;height:-moz-fit-content;height:fit-content;overflow:hidden;margin:auto;margin-top:50px;border-radius:26px;box-shadow:1px 3px 10px #615f5f}.main,.footer{padding:25px}.profile{color:#f1f1f1;display:flex;justify-content:space-between;background-color:#790f0f;padding:25px}.profile-details{width:-webkit-fit-content;width:-moz-fit-content;width:fit-content;display:flex;align-items:center}.profile-details img{max-width:50px;max-height:50px;border-radius:50px;border:3px solid #fff}.profile-details div{margin:0 10px}.profile .settings{display:inline-grid}.search-bar{background-color:#790f0f}.search-bar form{width:inherit}.search-bar form .search{margin:15px 130px;background-color:#dd5d00;width:-webkit-fit-content;width:-moz-fit-content;width:fit-content;border-radius:26px;border-width:0px}.search-bar form input[type=search]{padding:5px;border-radius:26px 0 0 26px;height:40px;border-style:none;background-color:#eee;color:#333}.search-bar form input[type=submit]{height:40px;background-color:#dd5d00;border-radius:0 26px 26px 0;margin:0;border-style:none;color:#fff}.search-bar form .config{width:500px;padding:15px 130px;display:flex;background-color:#9e2a2a;color:#fff}.main{display:flex;flex-wrap:wrap}.main .card{margin:5px 10px;width:100px;height:120px;padding:10px;background-color:#dd5d00;border-radius:10px;box-shadow:1px 3px 10px #615f5f}.footer{background-color:#790f0f;color:#fff;text-align:center}
+/* ---------- GLOBALS ---------------- */
+* {
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+body {
+  font-family: Georgia, "Times New Roman", Times, serif;
+}
+
+/* just for testing */
+hr {
+  margin: 0;
+  border-style: none;
+  border: 1px solid #9e2a2a;
+}
+
+.content {
+  width: 500px;
+  height: fit-content;
+  overflow: hidden;
+  margin: auto;
+  margin-top: 50px;
+  border-radius: 13px;
+  box-shadow: 1px 3px 10px #615f5f;
+}
+
+.main, .footer {
+  padding: 25px;
+}
+
+.profile {
+  color: #f1f1f1;
+  display: flex;
+  justify-content: space-between;
+  background-color: #790f0f;
+  padding: 25px;
+}
+.profile-details {
+  width: fit-content;
+  display: flex;
+  align-items: center;
+}
+.profile-details img {
+  max-width: 50px;
+  max-height: 50px;
+  border-radius: 50px;
+  border: 3px solid white;
+}
+.profile-details div {
+  margin: 0 10px;
+}
+.profile .settings {
+  display: inline-grid;
+}
+
+.search-bar {
+  background-color: #790f0f;
+}
+.search-bar form {
+  width: inherit;
+}
+.search-bar form .search {
+  margin: 15px 130px;
+  background-color: #dd5d00;
+  width: fit-content;
+  border-radius: 26px;
+  border-width: 0px;
+}
+.search-bar form input[type=search] {
+  padding: 5px;
+  border-radius: 26px 0 0 26px;
+  height: 40px;
+  border-style: none;
+  background-color: #eee;
+  color: #333;
+}
+.search-bar form input[type=submit] {
+  height: 40px;
+  background-color: #dd5d00;
+  border-radius: 0 26px 26px 0;
+  margin: 0;
+  border-style: none;
+  color: white;
+}
+.search-bar form .config {
+  display: flex;
+  background-color: #9e2a2a;
+  color: white;
+}
+
+.main {
+  display: flex;
+  flex-wrap: wrap;
+}
+.main .card {
+  margin: 5px 10px;
+  width: 100px;
+  height: 120px;
+  padding: 10px;
+  background-color: #dd5d00;
+  border-radius: 10px;
+  box-shadow: 1px 3px 10px #615f5f;
+}
+
+.footer {
+  background-color: #790f0f;
+  color: white;
+  text-align: center;
+}
+
+/*# sourceMappingURL=style.css.map */
