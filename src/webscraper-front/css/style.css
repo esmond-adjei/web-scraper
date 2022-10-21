@@ -10,9 +10,14 @@ a {
 
 body {
   font-family: Georgia, "Times New Roman", Times, serif;
+  background-image: linear-gradient();
 }
 
 /* just for testing */
+.profile > div {
+  border: solid 2px rgb(161, 211, 25);
+}
+
 hr {
   margin: 0;
   border-style: none;
@@ -37,7 +42,7 @@ hr {
   color: #f1f1f1;
   display: flex;
   justify-content: space-between;
-  background-color: #790f0f;
+  background: linear-gradient(90deg, rgb(56, 0, 0) 0%, rgb(139, 20, 26) 100%, rgb(255, 162, 0) 100%);
   padding: 25px;
 }
 .profile-details {
@@ -54,12 +59,16 @@ hr {
 .profile-details div {
   margin: 0 10px;
 }
+.profile .user-list {
+  max-width: 50px;
+  max-height: 50px;
+}
 .profile .settings {
   display: inline-grid;
 }
 
 .search-bar {
-  background-color: #790f0f;
+  background: linear-gradient(90deg, rgb(56, 0, 0) 0%, rgb(139, 20, 26) 100%, rgb(255, 162, 0) 100%);
 }
 .search-bar form {
   width: inherit;
@@ -89,7 +98,9 @@ hr {
 }
 .search-bar form .config {
   display: flex;
+  justify-content: space-around;
   background-color: #9e2a2a;
+  background: linear-gradient(45deg, rgb(140, 15, 15) 50%, rgb(222, 36, 46) 100%);
   color: white;
 }
 
@@ -104,13 +115,68 @@ hr {
   padding: 10px;
   background-color: #dd5d00;
   border-radius: 10px;
-  box-shadow: 1px 3px 10px #615f5f;
 }
 
 .footer {
-  background-color: #790f0f;
+  background: rgb(55, 4, 4);
+  background: radial-gradient(circle, rgb(55, 4, 4) 0%, rgb(22, 0, 0) 100%);
   color: white;
   text-align: center;
+}
+
+.box_link {
+  min-width: 300px;
+  margin: 1.5%;
+  transition: 100ms ease-in-out;
+}
+
+.box_link:hover {
+  box-shadow: 0px 7px 8px rgba(71, 71, 71, 0.3);
+  border-left: 5px solid #dd5d00;
+}
+
+.box_nav {
+  position: relative;
+  width: 100px;
+  height: 120px;
+  background-size: cover;
+  transition: 400ms ease-in-out;
+}
+
+.box_nav h1 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 130px;
+  height: fit-content;
+  padding: 10px 5px 15px;
+  border-radius: 35px;
+  color: #fff;
+  opacity: 0;
+  transition: 300ms ease-in-out;
+}
+
+.box_nav:hover {
+  box-shadow: 0px 7px 8px rgba(71, 71, 71, 0.3);
+  border-left: 5px solid #dd5d00;
+  width: 240px;
+}
+
+.box_nav h1:hover {
+  background-color: #dd5d00;
+  width: 200px;
+  padding: 10px 10px 15px;
+  opacity: 1;
+}
+
+.box_link, .box_nav {
+  background-color: white;
+  text-align: center;
+  padding: 1.5%;
+  border-radius: 10px;
+  border-left: 3px solid #dd5d00;
+  box-shadow: 0px 3px 12px rgba(71, 71, 71, 0.15);
 }
 
 /*# sourceMappingURL=style.css.map */
