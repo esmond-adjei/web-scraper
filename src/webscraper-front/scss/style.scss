@@ -1,4 +1,5 @@
 @import 'config';
+@import 'toggle';
 
 * {
     box-sizing: border-box;
@@ -20,7 +21,7 @@ body{
 // }
 // .profile > div{
 //     border: solid 2px $test-color; 
-// } 
+// }
 hr {
     margin: 0;
     border-style: none;
@@ -66,7 +67,17 @@ hr {
         max-height: 50px;
     }
     .settings {
-        display: inline-grid;
+        display: flex;
+        flex-direction: column-reverse;
+        justify-content: space-between;
+        align-items: center;
+
+       .logout {
+        border-radius: 10px;
+        background-color: #cf2028;
+        color: #eee;
+        padding: 3px 5px;
+       }
     }
 }
 
@@ -116,8 +127,10 @@ hr {
 .main{
     display: flex;
     flex-wrap: wrap;
-    overflow-inline: auto;
-    height: 200px;
+    overflow: auto;
+    height: 250px;
+    border-radius: 10px;
+    border: 3px solid $test-color;
 
     .card{
         margin: 5px 10px;

@@ -9,7 +9,7 @@
     <title>Home</title>
 </head>
 <body>
-    <div class="content">
+    <main class="content">
 
         <!-- HEADER -->
         <div class="header">
@@ -22,33 +22,47 @@
                         <p><small>level 3 scraper 💖</small></p>
                     </div>
                 </div>
+                
                 <div class="user-list"><img src="images/Hepta logo 7 white.png" alt=""></div>
+                
                 <div class="settings">
-                    <span class="toggle-dark">change to dark</span>
-                    <button>Logout</button>
+                    <div class="toggle-dark">
+                        <input type="checkbox" class="checkbox" id="checkbox">
+                        <label for="checkbox" class="label">
+                           <div class='ball'></div>
+                        </label>
+                    </div>
+                    <div class="logout">
+                        <span>logout</span>
+                    </div>
                 </div>
             </div>
+        </div>
 
-            <!-- SEARCH -->
-            <div class="search-bar">
-                <hr>
-                <form action="">
-                    <div class="search">
-                        <input type="search" name="query" id="" placeholder="search for a movie...">
-                        <input type="submit" value="Scrape">
-                    </div>
-                    <div class="config rounded-md px-auto mx-auto">
-                        <div class="toggle-movie-type">
-                            movie-series
-                        </div>
-                        <div class="image-option">
-                            <input type="checkbox" name="download-image" id="download-image">
-                            <label for="download-image">Download image</label>
-                        </div>
-                    </div>
-                </form>
-            </div>
+        <!-- SEARCH -->
+        <div class="search-bar">
+            <hr>
+            <form action="">
+                <div class="search">
+                    <input type="search" name="query" id="" placeholder="search for a movie...">
+                    <input type="submit" value="Scrape">
+                </div>
+                <div class="config">
+                    <!-- <div class="toggle-movie-type">
+                        movie-series
+                    </div> -->
 
+                    <label class="switch">
+                        <input type="checkbox">
+                        <span class="slider round"></span>
+                    </label>
+
+                    <div class="image-option">
+                        <input type="checkbox" name="download-image" id="download-image">
+                        <label for="download-image">Download image</label>
+                    </div>
+                </div>
+            </form>
         </div>
 
         <!-- MAIN CONTENT -->
@@ -76,6 +90,14 @@
             <small>copyright @2022</small>
             <small>xmon</small>
         </div>
-    </div>
+    </main>
 </body>
+<script>
+    const checkbox = document.getElementById('checkbox');
+
+    checkbox.addEventListener('change', ()=>{
+    document.body.classList.toggle('dark');
+})
+</script>
+
 </html>
