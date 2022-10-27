@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="css/output.css">
     <title>Home</title>
 </head>
-<body>
+<bod>
     <main class="content">
 
         <!-- HEADER -->
@@ -52,14 +52,28 @@
                         movie-series
                     </div> -->
 
-                    <label class="switch">
+                    <!-- <label class="switch">
                         <input type="checkbox">
                         <span class="slider round"></span>
-                    </label>
-
+                    </label> -->
+                    
+                    <div>
+                     <select class="movie-type" name="movie-type" id="movie-type">
+                        <option value="Movie">Movie</option>
+                        <option value="Series">Series</option>
+                     </select>
+                    </div>
+<!-- 
                     <div class="image-option">
                         <input type="checkbox" name="download-image" id="download-image">
                         <label for="download-image">Download image</label>
+                    </div> -->
+
+                    <div class="">
+                        <input type="checkbox" class="">
+                        <label for="checkbox" class="">
+                           <div class='ball'></div>
+                        </label>
                     </div>
                 </div>
             </form>
@@ -97,7 +111,8 @@
 
     checkbox.addEventListener('change', ()=>{
     document.body.classList.toggle('dark');
-})
+    document..classList.toggle('dark');
+    })
 </script>
 
 </html>
