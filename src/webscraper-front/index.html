@@ -23,9 +23,9 @@
                     </div>
                 </div>
                 
-                <div class="user-list"><img src="images/Hepta logo 7 white.png" alt=""></div>
+                <div class="profile-user-list"><img src="images/Hepta logo 7 white.png" alt=""></div>
                 
-                <div class="settings">
+                <div class="profile-settings">
                     <div class="toggle-dark">
                         <input type="checkbox" class="checkbox" id="checkbox">
                         <label for="checkbox" class="label">
@@ -43,38 +43,28 @@
         <div class="search-bar">
             <hr>
             <form action="">
+                
                 <div class="search">
                     <input type="search" name="query" id="" placeholder="search for a movie...">
                     <input type="submit" value="Scrape">
                 </div>
+          
                 <div class="config">
-                    <!-- <div class="toggle-movie-type">
-                        movie-series
-                    </div> -->
-
-                    <!-- <label class="switch">
-                        <input type="checkbox">
-                        <span class="slider round"></span>
-                    </label> -->
-                    
-                    <div>
-                     <select class="movie-type" name="movie-type" id="movie-type">
-                        <option value="Movie">Movie</option>
-                        <option value="Series">Series</option>
-                     </select>
+                    <div class="select-type">
+                        <p>search for </p>
+                        <select class="movie-type" name="movie-type" id="movie-type">
+                            <option value="Movie">Movie</option>
+                            <option value="Series">Series</option>
+                        </select>
                     </div>
-<!-- 
-                    <div class="image-option">
-                        <input type="checkbox" name="download-image" id="download-image">
-                        <label for="download-image">Download image</label>
-                    </div> -->
 
-                    <div class="">
+                    <div class="select-image">
                         <input type="checkbox" class="">
                         <label for="checkbox" class="">
                            <div class='ball'></div>
                         </label>
                     </div>
+
                 </div>
             </form>
         </div>
@@ -106,13 +96,6 @@
         </div>
     </main>
 </body>
-<script>
-    const checkbox = document.getElementById('checkbox');
-
-    checkbox.addEventListener('change', ()=>{
-    document.body.classList.toggle('dark');
-    document..classList.toggle('dark');
-    })
-</script>
+<script src="js/dark.js"></script>
 
 </html>
