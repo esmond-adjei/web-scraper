@@ -1,6 +1,5 @@
 @import 'config';
 @import 'toggle';
-@import 'cards';
 
 *,*::before,*::after{
     box-sizing: border-box;
@@ -24,7 +23,7 @@ hr {
 
 // --------------------------------------------------
 .content {
-    background-color: #fff;
+    background-color: white;
     width: 500px;
     height: fit-content;
     overflow: hidden;
@@ -150,26 +149,19 @@ hr {
     overflow: auto;
     height: 250px;
     border-radius: 10px;
-    border: 3px solid $test-color;
 
     .card{
-        // position: relative;
-        width: 100px;
-        height: 120px;
-        
-        margin-right: 20px;
-        margin: 5px 10px;
-        
-        padding: 1.5%;
-        
-        background-size: cover;
+        width: 120px;
+        height: 140px;
+        margin: 5px;
+        padding: 5px;
         background-color: $light-orange-brown;
+        background-size: cover;
         border-radius: 5px;
         border: 1px solid $wine;
       }
 
       .card_link{
-        border: 2px solid yellow;
         height: fit-content;
         display: flex;
         flex-direction: column;
@@ -178,6 +170,28 @@ hr {
       }
       
 }
+
+.see-more {
+    position: absolute;
+    top: 455px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: 10px auto;
+    height: fit-content;
+    border-radius: 10px;
+    text-align: center;
+    width: 120px;
+    background-color: $orange-brown;
+    color: #eee;
+    box-shadow: $shadow-color;
+    opacity: 33%;
+    transition: 0.3s;
+}
+.see-more:hover{
+    opacity: 100%;
+}
+
 
 .footer {
     background: rgb(55,4,4);
