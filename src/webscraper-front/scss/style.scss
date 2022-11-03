@@ -127,6 +127,10 @@ hr {
             background: linear-gradient(45deg, rgba(140,15,15,1) 50%, rgba(222,36,46,1) 100%);
             color: white;
 
+            div {
+                border: 2px solid yellow;
+            }
+
             .select-type {
                 display: flex;
                 align-items: center;
@@ -142,10 +146,11 @@ hr {
                     outline: none;
                     border: 2px solid $orange-brown;
                 }
+            }
 
-                .select-image {
-                    display: none;
-                }
+            .select-image {
+                display: flex;
+                align-items: center;
             }
         }
     }

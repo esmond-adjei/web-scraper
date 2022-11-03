@@ -22,7 +22,7 @@
 //   border-radius: 50px;
 //   align-items: center;
 //   justify-content: space-between;
-//   position: relative;
+//   position: absolute;
 //   transform: scale(1.5);
 // }
 
@@ -42,54 +42,102 @@
 
 
 // my own checkbox switch
-.toggle-switch{
-  border: 3px solid yellow;
-  border-radius: 10px;
+// .toggle-switch{
+//   // position: absolute;
+//   border: 3px solid yellow;
+//   border-radius: 10px;
+//   margin: 50px;
+//   padding: 10px;
+//   padding-left: 40px;
+// }
+
+// input[type="checkbox"] {
+//   position: absolute;
+//   opacity: 0;
+// }
+
+// .checkbox:checked + label::before{
+//   color: red;
+//   transform: translateX(26px);
+// }
+
+// /* Now that it is clickable lets do the design magic */
+
+// label::after{
+//   position: absolute;
+//   content: "";
+//   background-color: #aaa;
+//   border-radius: 30px;
+//   width: 60px;
+//   height: 35px;
+//   left: 408px;
+// }
+
+// label::before {
+//   content: "";
+//   z-index: 1;
+//   position: absolute;
+//   width: 30px;
+//   height: 30px;
+//   border: 3px solid;
+//   background-color: red;
+//   border-radius: 50px;
   
-  margin: 50px;
-  padding: 10px;
-  padding-left: 40px;
-}
+// /*now let's reposition    */
+//   left: 408px;
+//   -webkit-transition: .4s;
+//   transition: .4s;
+// }
 
-input[type="checkbox"] {
-  position: absolute;
-  opacity: 0;
-}
+// .checkbox::checked + label::before{
+//     transform: translateX(26px);
+// }
 
-.checkbox:checked + label::before{
-  color: red;
-  transform: translateX(26px);
-}
+// ---------------------
+.switch {
+  width: 55px;
+  height: 34px;
+  transform: scale(0.55);
 
-/* Now that it is clickable lets do the design magic */
-
-label::after{
-  position: absolute;
-  content: "";
-  background-color: #aaa;
-/*   border: 2px solid green; */
-  border-radius: 30px;
-  width: 60px;
-  height: 35px;
-  left: 600px;
-}
-
-label::before {
-  content: "";
-  z-index: 1;
-  position: absolute;
-  width: 30px;
-  height: 30px;
-  border: 3px solid;
-  background-color: red;
-  border-radius: 50px;
+  input { // hide default checkbox
+    display: absolute;
+    opacity: 0;
+  }
   
-/*now let's reposition    */
-  left: 600px;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
+  input:checked + .slider::before{
+    --distanceX: 20px;
+    background-color: $orange-brown;
+    -webkit-transform: translateX(var(--distanceX));
+    -ms-transform: translateX(var(--distanceX));
+    transform: translateX(var(--distanceX));
+  }
 
-.checkbox::checked + label::before{
-    transform: translateX(26px);
+  input:checked + .slider{
+    background-color: $light-orange-brown;
+  }
+  
+  .slider { //slider channel
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 34px;
+    background-color: #ccc;    
+  }
+
+  .slider::before { // ball
+    border-radius: 50%;
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    box-shadow: $shadow-color;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
 }
