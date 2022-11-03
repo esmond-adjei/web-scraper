@@ -1,62 +1,13 @@
-// --------------------------------------------------
 
-.box_link{
-    min-width: 300px;
-    margin: 1.5%;
-    transition: 100ms ease-in-out;
-  }
-  .box_link:hover{
-      box-shadow: 0px 7px 8px rgba(71, 71, 71, 0.30);
-      border-left: 5px solid $orange-brown;
-  }
-  .box_nav{
-    position: relative;
-    width: 100px;
-    height: 120px;
-    margin-right: 20px;
-    margin-bottom: 20px;
-    background-size: cover;
-    transition: 400ms ease-in-out;
-  }
-  .box_nav h1 {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 10px;
-    height: fit-content;
-    padding: 10px 5px 15px;
-    border-radius: 35px;
-    color: #fff;
-    opacity: 0;
-    transition: 300ms ease-in-out;
-  }
-  .box_nav:hover{
-      box-shadow: 0px 7px 8px rgba(71, 71, 71, 0.30);
-      border-left: 5px solid $orange-brown;
-      width: 122px;
-  }
-  .box_nav h1:hover{
+
+
+//     // --------------------------------
+.see-more {
+    margin: 10px auto;
+    border-radius: 10px;
+    text-align: center;
+    width: 120px;
     background-color: $orange-brown;
-    width: 80px;
-    padding: 10px 10px 15px;
-    opacity: 1;
-  }
-  .box_link, .box_nav{
-      background-color: white;
-      text-align: center;
-      // margin: 1.5%;
-      padding: 1.5%;
-      border-radius: 10px;
-      border-left: 3px solid $orange-brown;
-      box-shadow: 0px 3px 12px rgba(71, 71, 71, 0.15);
-    }
-  
-  .see-more {
-      margin: 10px auto;
-      border-radius: 10px;
-      text-align: center;
-      width: 120px;
-      background-color: $orange-brown;
-      color: #eee;
+    color: #eee;
+    // box-shadow: $shadow-color;
   }
