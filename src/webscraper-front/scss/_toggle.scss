@@ -1,41 +1,95 @@
-body.dark{
-  background-image: none;
-  background-color: $dark-mode;
+// body.dark{
+//   background-image: none;
+//   background-color: $dark-mode;
+// }
+
+// .slider, a, button, input[type="submit"], select, label{
+//   cursor: pointer;
+// }
+
+// // -------------------DARK MODE TOGGLE----------------
+
+// .checkbox {
+//   opacity: 0;
+//   position: absolute; // hide and remove from
+// }
+
+// .label {
+//   width: 25px;
+//   height: 10px;
+//   background-color: #ccc;
+//   display: flex;
+//   border-radius: 50px;
+//   align-items: center;
+//   justify-content: space-between;
+//   position: relative;
+//   transform: scale(1.5);
+// }
+
+// .ball {
+//   width: 15px;
+//   height: 15px;
+//   background-color: white;
+//   position: absolute;
+//   border-radius: 50%;
+//   transition: transform 0.2s linear;
+// }
+
+// .checkbox:checked + .label .ball{
+//   transform: translateX(11px);
+//   background-color: $dark-mode;
+// }
+
+
+// my own checkbox switch
+.toggle-switch{
+  border: 3px solid yellow;
+  border-radius: 10px;
+  
+  margin: 50px;
+  padding: 10px;
+  padding-left: 40px;
 }
 
-.slider, a, button, input[type="submit"], select, label{
-  cursor: pointer;
-}
-
-// -------------------DARK MODE TOGGLE----------------
-
-.checkbox {
-  opacity: 0;
-  position: absolute; // hide and remove from
-}
-
-.label {
-  width: 25px;
-  height: 10px;
-  background-color: #ccc;
-  display: flex;
-  border-radius: 50px;
-  align-items: center;
-  justify-content: space-between;
-  position: relative;
-  transform: scale(1.5);
-}
-
-.ball {
-  width: 15px;
-  height: 15px;
-  background-color: white;
+input[type="checkbox"] {
   position: absolute;
-  border-radius: 50%;
-  transition: transform 0.2s linear;
+  opacity: 0;
 }
 
-.checkbox:checked + .label .ball{
-  transform: translateX(11px);
-  background-color: $dark-mode;
+.checkbox:checked + label::before{
+  color: red;
+  transform: translateX(26px);
+}
+
+/* Now that it is clickable lets do the design magic */
+
+label::after{
+  position: absolute;
+  content: "";
+  background-color: #aaa;
+/*   border: 2px solid green; */
+  border-radius: 30px;
+  width: 60px;
+  height: 35px;
+  left: 600px;
+}
+
+label::before {
+  content: "";
+  z-index: 1;
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  border: 3px solid;
+  background-color: red;
+  border-radius: 50px;
+  
+/*now let's reposition    */
+  left: 600px;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.checkbox::checked + label::before{
+    transform: translateX(26px);
 }
