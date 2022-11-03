@@ -66,11 +66,11 @@ hr {
             margin: 0 10px;
         }
     }
-    .user-list {
+    &-user-list {
         max-width: 50px;
         max-height: 50px;
     }
-    .settings {
+    &-settings {
         display: flex;
         flex-direction: column-reverse;
         justify-content: space-between;
@@ -98,27 +98,27 @@ hr {
             border-radius: 26px;
             border-width: 0px;
             display: flex;
+            
+            input[type="search"]{
+                padding: 0px 10px;
+                border-radius: 26px 0 0 26px;
+                height: 40px;
+                border-style: none;
+                background-color: #eee;
+                color: #333;
+                outline: none;
+            }
+            
+            input[type="submit"] {
+                height: 40px;
+                background-color: $orange-brown;
+                border-radius:  0 26px 26px 0;
+                margin: 0;
+                padding: 0px 7px;
+                border-style: none;
+                color: white;
+            }        
         }
-        
-        input[type="search"]{
-            padding: 0px 10px;
-            border-radius: 26px 0 0 26px;
-            height: 40px;
-            border-style: none;
-            background-color: #eee;
-            color: #333;
-            outline: none;
-        }
-        
-        input[type="submit"] {
-            height: 40px;
-            background-color: $orange-brown;
-            border-radius:  0 26px 26px 0;
-            margin: 0;
-            padding: 0px 7px;
-            border-style: none;
-            color: white;
-        }        
         
         .config{
             display: flex;
@@ -126,9 +126,32 @@ hr {
             background-color: $light-wine;
             background: linear-gradient(45deg, rgba(140,15,15,1) 50%, rgba(222,36,46,1) 100%);
             color: white;
+
+            .select-type {
+                display: flex;
+                align-items: center;
+            
+                .movie-type{
+                    color: #333;
+                    border-radius: 10px;
+                    margin: 0px 7px;
+                    width: 80px;
+                    text-align: center;
+                    border: none;
+                    line-height: inherit;
+                    outline: none;
+                    border: 2px solid $orange-brown;
+                }
+
+                .select-image {
+                    display: none;
+                }
+            }
         }
     }
 }
+
+
 .main{
     display: flex;
     flex-wrap: wrap;
@@ -155,20 +178,7 @@ hr {
 }
 
 // ----------------------------------
-select.movie-type{
-    color: #333;
 
-    border-radius: 10px;
-    padding: 2px 3px ;
-    margin: 4px;
-    width: 140%;
-    appearance: none;
-    border: none;
-    line-height: inherit;
-    outline: none;
-    border: 2px solid $orange-brown;
-    background-image: linear-gradient(to top, #f9f9f9, #fff 33%);
-}
 
 // --------------------------------------
 // .content
