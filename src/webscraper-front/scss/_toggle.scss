@@ -1,4 +1,4 @@
-body.dark{
+.dark{
   background-image: none;
   background-color: $dark-mode;
 }
@@ -21,8 +21,6 @@ body.dark{
   display: flex;
   border-radius: 50px;
   align-items: center;
-  justify-content: space-between;
-  position: absolute;
   transform: scale(1.5);
 }
 
@@ -32,6 +30,7 @@ body.dark{
   background-color: white;
   position: absolute;
   border-radius: 50%;
+  box-shadow: $shadow-color;
   transition: transform 0.2s linear;
 }
 
@@ -40,39 +39,7 @@ body.dark{
   background-color: $dark-mode;
 }
 
-/* Now that it is clickable lets do the design magic */
-
-label::after{
-  position: absolute;
-  content: "";
-  background-color: #aaa;
-  border-radius: 30px;
-  width: 60px;
-  height: 35px;
-  left: 408px;
-}
-
-label::before {
-  content: "";
-  z-index: 1;
-  position: absolute;
-  width: 30px;
-  height: 30px;
-  border: 3px solid;
-  background-color: red;
-  border-radius: 50px;
-  
-/*now let's reposition    */
-  left: 408px;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
-
-.checkbox::checked + label::before{
-    transform: translateX(26px);
-}
-
-// ---------------------
+// -------------TOGGLE FOR SELECTING IMAGE-----
 .switch {
   width: 55px;
   height: 34px;

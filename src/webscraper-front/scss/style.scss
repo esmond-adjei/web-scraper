@@ -43,10 +43,6 @@ hr {
     background: $wine-gradient;
     padding: 25px;
 
-    div {
-        border: 1px solid yellow;
-    }
-
     &-details{
         width: fit-content;
         display: flex;
@@ -143,14 +139,17 @@ hr {
     }
 }
 
+.movie-selection{
+    min-height: 300px;
+}
 
 .main{
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
     overflow: auto;
-    height: 250px;
-    border-radius: 10px;
-
+    max-height: 300px;
+    
     .card{
         width: 120px;
         height: 140px;
@@ -169,12 +168,22 @@ hr {
         align-items: center;
         color: #555;
       }
-      
+}
+
+.get-link-page {
+    border: 3px solid yellow;
+    padding: 50px;
+    
+    .link-card {
+        padding: 20px;
+        border-radius: 10px;
+        background-color: $light-orange-brown;
+    }
 }
 
 .see-more {
     position: absolute;
-    top: 455px;
+    top: 505px;
     left: 0;
     right: 0;
     bottom: 0;
