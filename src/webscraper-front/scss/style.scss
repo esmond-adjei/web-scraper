@@ -141,6 +141,14 @@ hr {
 
 .movie-selection{
     min-height: 300px;
+    
+    .navigation, .status {
+        color: rgb(156, 156, 156);
+        font-size: small;
+        background-color: rgb(236, 236, 236);
+        padding: 3px 30px;
+    }
+
 }
 
 .main{
@@ -171,13 +179,19 @@ hr {
 }
 
 .get-link-page {
-    border: 3px solid yellow;
-    padding: 50px;
+    padding: 30px;
     
     .link-card {
+        min-height: 200px;
+        max-height: 200px;
         padding: 20px;
         border-radius: 10px;
         background-color: $light-orange-brown;
+        
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        justify-content: space-around;
     }
 }
 
