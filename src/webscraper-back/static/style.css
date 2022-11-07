@@ -3,3 +3,10 @@ a:hover {
   transition: linear 50ms;
   opacity: 50%;
 }
+.get-link-page{
+  background-position: top; 
+  background-size: cover;
+}
+.link-card{
+  opacity: 70%;
+}

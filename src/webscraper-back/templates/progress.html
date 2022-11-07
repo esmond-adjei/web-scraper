@@ -3,7 +3,7 @@
 <!-- MAIN CONTENT -->
 {% block content %}
 <!-- this is the content -->
-<div class="get-link-page">
+<div class="get-link-page" style="background-image: url('{{imglnk}}')">
   {% for movie, links in scraped_data.items %}
   <div class="link-card">
     <h2 style="text-align: center"><b>{{movie}}</b></h2>

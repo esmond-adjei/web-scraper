@@ -36,13 +36,16 @@ def progress(request):
     print('='*50)
     if download_img == 'yes':
         try:
-            IMDB(query, True, 0.7)
+            imglnk = IMDB(query, True, 0.7)
+            # print(imglnk)
         except:
             print("COULD NOT OBTAIN IMAGE FILE")
-
+            imglnk = '#'
+    else:
+        imglnk = '#'
     # print("========== data ============\n")
     # for k, v in scraped_data.items():
     #     print('>>', k, '\n\t', v)
     scraped_data = {k: v for k, v in scraped_data.items() if v}
 
-    return render(request, 'progress.html', {'scraped_data': scraped_data, 'query': query})
+    return render(request, 'progress.html', {'scraped_data': scraped_data, 'query': query, 'imglnk': imglnk})
