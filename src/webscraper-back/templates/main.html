@@ -1,11 +1,13 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="css/style.css" />
-    <link rel="stylesheet" href="css/output.css" />
+    <link rel="stylesheet" href="{% static 'style.css' %}" />
+    <link rel="stylesheet" href="{% static 'output.css' %}" />
     <title>Home</title>
   </head>
   <body id="turn-dark">
@@ -15,7 +17,7 @@
         <!-- PROFILE -->
         <div class="profile">
           <div class="profile-details">
-            <img src="images/Mum.jpg" alt="profile picture" />
+            <img src="{% static 'images/Mum.jpg' %}" alt="profile picture" />
             <div>
               <p class="text-2xl">Jane Doe</p>
               <p><small>level 3 scraper 💖</small></p>
@@ -40,12 +42,11 @@
       <!-- SEARCH -->
       <div class="search-bar">
         <hr />
-        <form action="">
+        <form action="progress" method="get">
           <div class="search">
             <input
               type="search"
               name="query"
-              id=""
               placeholder="search for a movie..."
             />
             <input type="submit" value="Scrape" />
@@ -55,8 +56,8 @@
             <div class="select-type">
               <p>search for</p>
               <select class="movie-type" name="movie-type" id="movie-type">
-                <option value="Movie">Movie</option>
-                <option value="Series">Series</option>
+                <option value="movie">Movie</option>
+                <option value="series">Series</option>
               </select>
             </div>
 
@@ -66,9 +67,8 @@
                 <input
                   type="checkbox"
                   id="image-choice"
-                  name="img-choice"
+                  name="download-img"
                   value="yes"
-                  checked
                 />
                 <span class="slider round"></span>
               </label>
@@ -77,79 +77,22 @@
         </form>
       </div>
 
-      <!-- MAIN CONTENT -->
+      <!-- DYNAMIC CONTENT -->
       <div class="movie-selection" id="turn-dark">
+        <!-- DC/navigation -->
         <div class="navigation" id="turn-dark">
           <p>
-            <a href="" style="opacity: 50%; color: brown">home</a>/download page
+            <a href="{% url 'index' %}" style="opacity: 70%; color: brown"
+              >home</a
+            >/download page
           </p>
         </div>
-
-        <!-- <div class="main">
-          <a href="" class="card_link">
-            <div
-              class="card"
-              style="background-image: url('images/escape_room.jpg')"
-            ></div>
-            <h1>mulan</h1>
-          </a>
-          <a href="" class="card_link">
-            <div
-              class="card"
-              style="background-image: url('images/escape_room.jpg')"
-            ></div>
-            <h1>mulan</h1>
-          </a>
-          <a href="" class="card_link">
-            <div
-              class="card"
-              style="background-image: url('images/escape_room.jpg')"
-            ></div>
-            <h1>mulan</h1>
-          </a>
-          <a href="" class="card_link">
-            <div class="card"></div>
-            <h1>mulan</h1>
-          </a>
-          <a href="" class="card_link">
-            <div class="card"></div>
-            <h1>mulan</h1>
-          </a>
-          <a href="" class="card_link">
-            <div class="card"></div>
-            <h1>mulan</h1>
-          </a>
-
-          <div class="see-more">
-            <a href="./"><p>See more</p></a>
-          </div>
-        </div> -->
-
-        <!-- this is the page where you copy and save the links -->
-        <div class="get-link-page">
-          <div class="link-card">
-            <h2 style="text-align: center">Movie Title</h2>
-            <ol>
-              <li>link 1</li>
-              <li>link 2</li>
-              <li>link 3</li>
-            </ol>
-          </div>
-          <div class="link-card">
-            <h2 style="text-align: center">Movie Title</h2>
-            <ol>
-              <li>link 1</li>
-              <li>link 2</li>
-              <li>link 3</li>
-            </ol>
-          </div>
-        </div>
-
+        {% block content %} {% endblock %}
+        <!-- DC/status -->
         <div class="status" id="turn-dark">
           <p>This shows the current status such press F1 for help</p>
         </div>
       </div>
-
       <!-- FOOTER -->
       <div class="footer">
         <small>copyright @2022</small>
@@ -157,5 +100,5 @@
       </div>
     </main>
   </body>
-  <script src="js/dark.js"></script>
+  <script src="{% static 'js/turndark.js' %}"></script>
 </html>

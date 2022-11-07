@@ -25,9 +25,12 @@ def progress(request):
     except:
         download_img = ''
 
-    address, movieKeyword = getAddress(movie_type, query)
-    scraped_data = recursiveScrape(
-        find_tag('a', scrape(address)), movieKeyword.lower())
+    if query.strip().replace("+", "") == '':
+        scraped_data = {}
+    else:
+        address, movieKeyword = getAddress(movie_type, query)
+        scraped_data = recursiveScrape(
+            find_tag('a', scrape(address)), movieKeyword.lower())
 
     # option to download image
     print('='*50)
@@ -37,8 +40,9 @@ def progress(request):
         except:
             print("COULD NOT OBTAIN IMAGE FILE")
 
-    print("========== data ============\n")
-    for k, v in scraped_data.items():
-        print('>>', k, '\n\t', v)
+    # print("========== data ============\n")
+    # for k, v in scraped_data.items():
+    #     print('>>', k, '\n\t', v)
+    scraped_data = {k: v for k, v in scraped_data.items() if v}
 
-    return render(request, 'progress.html', {'scraped_data': scraped_data})
+    return render(request, 'progress.html', {'scraped_data': scraped_data, 'query': query})
