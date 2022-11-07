@@ -148,6 +148,12 @@ hr {
         font-size: small;
         background-color: rgb(236, 236, 236);
         padding: 3px 30px;
+        width: inherit;
+    }
+    
+    .status{
+        position: sticky;
+        top: 526px;
     }
 
 }
@@ -169,14 +175,6 @@ hr {
         border-radius: 5px;
         border: 1px solid $wine;
       }
-
-      .card_link{
-        height: fit-content;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        color: #555;
-      }
 }
 
 .get-link-page {
@@ -193,6 +191,7 @@ hr {
         flex-direction: column;
         flex-wrap: nowrap;
         justify-content: space-around;
+        align-items: center;
     }
 }
 

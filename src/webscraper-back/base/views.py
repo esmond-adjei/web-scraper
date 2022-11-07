@@ -3,6 +3,8 @@ from .scrapealgo import *
 from .scrapeTools import IMDB
 
 # Create your views here.
+
+
 def index(request):
     return render(request, 'index.html')
 
@@ -14,6 +16,7 @@ def index(request):
 #     print(form_data)
 #     return render(request, 'progress.html',{"data": query})
 
+
 def progress(request):
     query = request.GET['query']
     movie_type = request.GET['movie-type']
@@ -23,23 +26,19 @@ def progress(request):
         download_img = ''
 
     address, movieKeyword = getAddress(movie_type, query)
-    scraped_data = recursiveScrape(find_tag('a',scrape(address)), movieKeyword.lower())    
-    image_option = download_img
+    scraped_data = recursiveScrape(
+        find_tag('a', scrape(address)), movieKeyword.lower())
 
     # option to download image
     print('='*50)
-    if ' '.join(image_option[1:]) == '':
-        imgKeyword = movieKeyword
-    else: imgKeyword = ' '.join(image_option[1:])
-    if image_option == 'on':
+    if download_img == 'yes':
         try:
-            IMDB(imgKeyword,True,0.7)
+            IMDB(query, True, 0.7)
         except:
             print("COULD NOT OBTAIN IMAGE FILE")
-        
-    print("========== data ============\n")
-    for k,v in scraped_data.items():
-        print('>>',k,'\n\t',v)
-    
-    return render(request, 'progress.html', {'scraped_data': scraped_data})
 
+    print("========== data ============\n")
+    for k, v in scraped_data.items():
+        print('>>', k, '\n\t', v)
+
+    return render(request, 'progress.html', {'scraped_data': scraped_data})

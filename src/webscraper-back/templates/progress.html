@@ -2,34 +2,117 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <link rel="stylesheet" href="style.css"> -->
-    <link rel="stylesheet" href="{% static 'progress.css' %}">
-    <title>Scraping</title>
-</head>
-<body>
-    <!-- <p>This is the body</p> -->
-    <div class="content">
-        <h1>Movie Scraper</h1>
-        <div class="progress-bar">
-            <p>searching...</p>
-        </div>
-        <div class="results">
-        {% for movie, links in scraped_data.items %}   
-            <div class="data">
-                <p style="text-align: center;"><b>{{movie}}</b></p>
-                <ol class="data-items">
-                    {% for link in links %}
-                    <li><a href={{link}}> {{movie}} </a></li>
-                    {% endfor %}
-                </ol>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'style.css' %}" />
+    <title>Home</title>
+  </head>
+  <body id="turn-dark">
+    <main class="content">
+      <!-- HEADER -->
+      <div class="header">
+        <!-- PROFILE -->
+        <div class="profile">
+          <div class="profile-details">
+            <img src="{% static 'Mum.jpg' %}" alt="profile picture" />
+            <div>
+              <p class="text-2xl">Jane Doe</p>
+              <p><small>level 3 scraper 💖</small></p>
             </div>
-        {% endfor %}
+          </div>
+
+          <div class="profile-settings">
+            <div class="toggle-dark">
+              <input type="checkbox" class="checkbox" id="checkbox" />
+              <label for="checkbox" class="label">
+                <div class="ball"></div>
+              </label>
+            </div>
+
+            <div class="logout">
+              <a href=""><span>logout</span></a>
+            </div>
+          </div>
         </div>
-        <button><a href="/index.html">Save</a></button>
+      </div>
+      <!-- SEARCH -->
+      <div class="search-bar">
+        <hr />
+        <form action="">
+          <div class="search">
+            <input
+              type="search"
+              name="query"
+              id=""
+              placeholder="search for a movie..."
+            />
+            <input type="submit" value="Scrape" />
+          </div>
+
+          <div class="config">
+            <div class="select-type">
+              <p>search for</p>
+              <select class="movie-type" name="movie-type" id="movie-type">
+                <option value="Movie">Movie</option>
+                <option value="Series">Series</option>
+              </select>
+            </div>
+
+            <div class="select-image">
+              <p>download image</p>
+              <label class="switch" for="image-choice">
+                <input
+                  type="checkbox"
+                  id="image-choice"
+                  name="img-choice"
+                  value="yes"
+                  checked
+                />
+                <span class="slider round"></span>
+              </label>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <!-- MAIN CONTENT -->
+      <div class="movie-selection" id="turn-dark">
+        <div class="navigation" id="turn-dark">
+          <p>
+            <a href="" style="opacity: 50%; color: brown">home</a>/download page
+          </p>
+        </div>
+
+        <!-- this is the content -->
+    <div class="get-link-page">
+        <div class="link-card">
+        {% for movie, links in scraped_data.items %}
+          <h2 style="text-align: center"><b>{{movie}}</b></h2>
+          <ol>
+            {% for link in links %}
+            <li><a href="{{link}}"> {{movie}} </a></li>
+            {% endfor %}
+          </ol>
+          {% empty %}
+          <p>Sorry... There are no links</p>
+          {% endfor %}
+        </div>
+
+
     </div>
-</body>
-</html>
+        <div class="status" id="turn-dark">
+            <p>This shows the current status such press F1 for help</p>
+        </div>
+  <!-- end of content -->
+
+        <!-- FOOTER -->
+        <div class="footer">
+          <small>copyright @2022</small>
+          <small>xmon</small>
+        </div>
+      </main>
+    </body>
+    <script src="turndark.js"></script>
+  </html>

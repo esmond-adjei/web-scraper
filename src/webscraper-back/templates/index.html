@@ -2,34 +2,149 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'style.css' %}">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'style.css' %}" />
     <title>Home</title>
-</head>
-<body>
-    <!-- <p>This is the body</p> -->
-    <div class="content">
-        <h1>Movie Scraper</h1>
-        <form action="progress" method="get">
-            <div class="search">
-                <input type="text" name="query" size="50">
-                <button>Search</button>
+  </head>
+  <body id="turn-dark">
+    <main class="content">
+      <!-- HEADER -->
+      <div class="header">
+        <!-- PROFILE -->
+        <div class="profile">
+          <div class="profile-details">
+            <img src="{% static 'Mum.jpg' %}" alt="profile picture" />
+            <div>
+              <p class="text-2xl">Jane Doe</p>
+              <p><small>level 3 scraper 💖</small></p>
             </div>
-            <div class="opt">
-                <select name="movie-type">
-                    <option value="movie">Movie</option>
-                    <option value="series">Series</option>
-                </select>
+          </div>
 
-                <span class="img-dwd">
-                    <input type="checkbox" name="download-img" id="download-img" checked>
-                    <label for="download-img">Download Image</label> 
-                </span>
+          <div class="profile-settings">
+            <div class="toggle-dark">
+              <input type="checkbox" class="checkbox" id="checkbox" />
+              <label for="checkbox" class="label">
+                <div class="ball"></div>
+              </label>
             </div>
+
+            <div class="logout">
+              <a href=""><span>logout</span></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SEARCH -->
+      <div class="search-bar">
+        <hr />
+        <form action="progress" method="get">
+          <div class="search">
+            <input
+              type="search"
+              name="query"
+              placeholder="search for a movie..."
+            />
+            <input type="submit" value="Scrape" />
+          </div>
+
+          <div class="config">
+            <div class="select-type">
+              <p>search for</p>
+              <select class="movie-type" name="movie-type" id="movie-type">
+                <option value="movie">Movie</option>
+                <option value="series">Series</option>
+              </select>
+            </div>
+
+            <div class="select-image">
+              <p>download image</p>
+              <label class="switch" for="image-choice">
+                <input
+                  type="checkbox"
+                  id="image-choice"
+                  name="download-img"
+                  value="yes"
+                  checked
+                />
+                <span class="slider round"></span>
+              </label>
+            </div>
+          </div>
         </form>
-    </div>
-</body>
+      </div>
+
+      <!-- MAIN CONTENT -->
+      <div class="movie-selection" id="turn-dark">
+        <div class="navigation" id="turn-dark">
+          <p>
+            <a href="" style="opacity: 50%; color: brown">home</a>/download page
+          </p>
+        </div>
+
+        <div class="main">
+          <a href="" class="card_link">
+            <div
+              class="card"
+              style="background-image: url('{% static 'mulan.jpg' %}')"
+            ></div>
+            <h1>mulan</h1>
+          </a>
+          <a href="" class="card_link">
+            <div
+              class="card"
+              style="background-image: url('{% static 'mulan.jpg' %}')"
+            ></div>
+            <h1>mulan</h1>
+          </a>
+          <a href="" class="card_link">
+            <div
+              class="card"
+              style="background-image: url('{% static 'mulan.jpg' %}')"
+            ></div>
+            <h1>mulan</h1>
+          </a>
+          <a href="" class="card_link">
+            <div
+              class="card"
+              style="background-image: url('{% static 'escape_room.jpg' %}')"
+            ></div>
+            <h1>Escape Room</h1>
+          </a>
+          <a href="" class="card_link">
+            <div
+              class="card"
+              style="background-image: url('{% static 'escape_room.jpg' %}')"
+            ></div>
+            <h1>Escape Room</h1>
+          </a>
+          <a href="" class="card_link">
+            <div
+              class="card"
+              style="background-image: url('{% static 'escape_room.jpg' %}')"
+            ></div>
+            <h1>Escape Room</h1>
+          </a>
+
+          <div class="see-more">
+            <a href="./"><p>See more</p></a>
+          </div>
+        </div>
+
+        <div class="status" id="turn-dark">
+          <p>This shows the current status such press F1 for help</p>
+        </div>
+      </div>
+
+      <!-- FOOTER -->
+      <div class="footer">
+        <small>copyright @2022</small>
+        <small>xmon</small>
+      </div>
+    </main>
+  </body>
+  <script src="turndark.js"></script>
 </html>
