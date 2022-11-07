@@ -1,6 +1,9 @@
 const checkbox = document.getElementById('checkbox');
 
 checkbox.addEventListener('change', ()=>{
-    document.body.classList.toggle('dark');
-    document.getElementById('turn-dark').classList.toggle('dark');
+    darkTargets = document.querySelectorAll('#turn-dark');
+    // console.log(darkTargets);
+    for (let i = 0; i<darkTargets.length; i++){
+        darkTargets[i].classList.toggle('dark');
+    }
 })

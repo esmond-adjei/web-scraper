@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .movie import *
+from .scrapealgo import *
 from .scrapeTools import IMDB
 
 # Create your views here.

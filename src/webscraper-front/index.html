@@ -1,122 +1,132 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/output.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/output.css" />
     <title>Home</title>
-</head>
-<body>
+  </head>
+  <body id="turn-dark">
     <main class="content">
-
-        <!-- HEADER -->
-        <div class="header">
-            <!-- PROFILE -->
-            <div class="profile">
-                <div class="profile-details">
-                    <img src="images/Mum.jpg" alt="profile picture">
-                    <div>
-                        <p class="text-2xl">Jane Doe</p>
-                        <p><small>level 3 scraper 💖</small></p>
-                    </div>
-                </div>
-                
-                <div class="profile-settings">
-                    <div class="toggle-dark">
-                        <input type="checkbox" class="checkbox" id="checkbox">
-                        <label for="checkbox" class="label">
-                           <div class='ball'></div>
-                        </label>
-                    </div>
-
-                    <div class="logout">
-                        <a href=""><span>logout</span></a>
-                    </div>
-                    
-                </div>
+      <!-- HEADER -->
+      <div class="header">
+        <!-- PROFILE -->
+        <div class="profile">
+          <div class="profile-details">
+            <img src="images/Mum.jpg" alt="profile picture" />
+            <div>
+              <p class="text-2xl">Jane Doe</p>
+              <p><small>level 3 scraper 💖</small></p>
             </div>
+          </div>
+
+          <div class="profile-settings">
+            <div class="toggle-dark">
+              <input type="checkbox" class="checkbox" id="checkbox" />
+              <label for="checkbox" class="label">
+                <div class="ball"></div>
+              </label>
+            </div>
+
+            <div class="logout">
+              <a href=""><span>logout</span></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SEARCH -->
+      <div class="search-bar">
+        <hr />
+        <form action="">
+          <div class="search">
+            <input
+              type="search"
+              name="query"
+              id=""
+              placeholder="search for a movie..."
+            />
+            <input type="submit" value="Scrape" />
+          </div>
+
+          <div class="config">
+            <div class="select-type">
+              <p>search for</p>
+              <select class="movie-type" name="movie-type" id="movie-type">
+                <option value="Movie">Movie</option>
+                <option value="Series">Series</option>
+              </select>
+            </div>
+
+            <div class="select-image">
+              <p>download image</p>
+              <label class="switch" for="image-choice">
+                <input
+                  type="checkbox"
+                  id="image-choice"
+                  name="img-choice"
+                  value="yes"
+                  checked
+                />
+                <span class="slider round"></span>
+              </label>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <!-- MAIN CONTENT -->
+      <div class="movie-selection" id="turn-dark">
+        <div class="navigation" id="turn-dark">
+          <p>
+            <a href="" style="opacity: 50%; color: brown">home</a>/download page
+          </p>
         </div>
 
-        <!-- SEARCH -->
-        <div class="search-bar">
-            <hr>
-            <form action="">
-                
-                <div class="search">
-                    <input type="search" name="query" id="" placeholder="search for a movie...">
-                    <input type="submit" value="Scrape">
-                </div>
-          
-                <div class="config">
-                    <div class="select-type">
-                        <p>search for </p>
-                        <select class="movie-type" name="movie-type" id="movie-type">
-                            <option value="Movie">Movie</option>
-                            <option value="Series">Series</option>
-                        </select>
-                    </div>
+        <div class="main">
+          <a href="" class="card_link">
+            <div
+              class="card"
+              style="background-image: url('images/escape_room.jpg')"
+            ></div>
+            <h1>mulan</h1>
+          </a>
+          <a href="" class="card_link">
+            <div
+              class="card"
+              style="background-image: url('images/escape_room.jpg')"
+            ></div>
+            <h1>mulan</h1>
+          </a>
+          <a href="" class="card_link">
+            <div
+              class="card"
+              style="background-image: url('images/escape_room.jpg')"
+            ></div>
+            <h1>mulan</h1>
+          </a>
+          <a href="" class="card_link">
+            <div class="card"></div>
+            <h1>mulan</h1>
+          </a>
+          <a href="" class="card_link">
+            <div class="card"></div>
+            <h1>mulan</h1>
+          </a>
+          <a href="" class="card_link">
+            <div class="card"></div>
+            <h1>mulan</h1>
+          </a>
 
-                    <div class="select-image">
-                        <p>download image</p>
-                        <label class="switch" value="img">
-                            <input type="checkbox" value="img">
-                            <span class="slider round"></span>
-                        </label>
-                    </div>
-
-                </div>
-            </form>
+          <div class="see-more">
+            <a href="./"><p>See more</p></a>
+          </div>
         </div>
 
-        <!-- MAIN CONTENT -->
-        <div class="movie-selection" id="turn-dark">
-            
-            <div class="navigation">
-                <p><a href="" style="opacity: 50%; color:brown;">home</a>/download page</p>
-            </div>
-
-            <div class="main">
-                <a href="" class="card_link">
-                    <div class='card' style="background-image: url('images/escape_room.jpg');">
-                    </div>
-                    <h1>mulan</h1>
-                </a>
-                <a href="" class="card_link">
-                    <div class='card' style="background-image: url('images/escape_room.jpg');">
-                    </div>
-                    <h1>mulan</h1>
-                </a>
-                <a href="" class="card_link">
-                    <div class='card' style="background-image: url('images/escape_room.jpg');">
-                    </div>
-                    <h1>mulan</h1>
-                </a>
-                <a href="" class="card_link">
-                    <div class='card'>
-                    </div>
-                    <h1>mulan</h1>
-                </a>
-                <a href="" class="card_link">
-                    <div class='card'>
-                    </div>
-                    <h1>mulan</h1>
-                </a>
-                <a href="" class="card_link">
-                    <div class='card'>
-                    </div>
-                    <h1>mulan</h1>
-                </a>
-
-
-                <div class="see-more">
-                    <a href="./"><p>See more</p></a>
-                </div>
-            </div>
-
-            <!-- this is the page where you copy and save the links -->
-            <!-- <div class="get-link-page">
+        <!-- this is the page where you copy and save the links -->
+        <!-- <div class="get-link-page">
                 <div class="link-card">
                     <h2 style="text-align: center;">Movie Title</h2>
                     <ol>
@@ -127,19 +137,17 @@
                 </div>
             </div> -->
 
-        <div class="status">
-            <p>This shows the current status such press F1 for help</p>
+        <div class="status" id="turn-dark">
+          <p>This shows the current status such press F1 for help</p>
         </div>
+      </div>
 
-        </div>
-
-        <!-- FOOTER -->
-        <div class="footer">
-            <small>copyright @2022</small>
-            <small>xmon</small>
-        </div>
+      <!-- FOOTER -->
+      <div class="footer">
+        <small>copyright @2022</small>
+        <small>xmon</small>
+      </div>
     </main>
-</body>
-<script src="js/dark.js"></script>
-
+  </body>
+  <script src="js/dark.js"></script>
 </html>

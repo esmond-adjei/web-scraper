@@ -1,6 +1,6 @@
 .dark{
   background-image: none;
-  background-color: $dark-mode;
+  background-color: $dark-mode !important;
 }
 
 .slider, a, button, input[type="submit"], select, label{
