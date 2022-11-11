@@ -5,7 +5,7 @@
 <!-- this is the content -->
 <div class="get-link-page" style="background-image: url('{{imglnk}}')">
   {% for movie, links in scraped_data.items %}
-  <div class="link-card">
+  <div class="link-card slide-top">
     <h2 style="text-align: center"><b>{{movie}}</b></h2>
     <ol>
       {% for link in links %}
@@ -14,7 +14,7 @@
     </ol>
   </div>
   {% empty %}
-  <div class="link-card">
+  <div class="link-card slide-top">
     <p style="text-align: center">
       Sorry... No results found for <b>{{query}}</b>
     </p>
@@ -23,4 +23,8 @@
   <!-- end of content -->
 </div>
 
+<!-- DC/status -->
+<div class="status" id="turn-dark">
+  <p>{{scraped_data.keys|length}} Results were found</p>
+</div>
 {% endblock %}
