@@ -4,6 +4,8 @@ from .scrapeTools import IMDB
 
 # Create your views here.
 
+PAYLOAD = {}
+
 
 def index(request):
     return render(request, 'index.html')
@@ -48,4 +50,5 @@ def progress(request):
     #     print('>>', k, '\n\t', v)
     scraped_data = {k: v for k, v in scraped_data.items() if v}
 
-    return render(request, 'progress.html', {'scraped_data': scraped_data, 'query': query, 'imglnk': imglnk})
+    PAYLOAD = {'scraped_data': scraped_data, 'query': query, 'imglnk': imglnk}
+    return render(request, 'progress.html', {'payload': PAYLOAD})

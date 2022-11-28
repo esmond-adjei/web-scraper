@@ -3,8 +3,8 @@
 <!-- MAIN CONTENT -->
 {% block content %}
 <!-- this is the content -->
-<div class="get-link-page" style="background-image: url('{{imglnk}}')">
-  {% for movie, links in scraped_data.items %}
+<div class="get-link-page" style="background-image: url('{{payload.imglnk}}')">
+  {% for movie, links in payload.scraped_data.items %}
   <div class="link-card slide-top">
     <h2 style="text-align: center"><b>{{movie}}</b></h2>
     <ol>
@@ -30,15 +30,19 @@
   {% empty %}
   <div class="link-card slide-top">
     <p style="text-align: center">
-      Sorry... No results found for <b>{{query}}</b>
+      Sorry... No results found for <b>{{payload.query}}</b>
     </p>
   </div>
   {% endfor %}
   <!-- end of content -->
 </div>
 
+<div class="see-more">
+  <a href="#">Save</a>
+</div>
+
 <!-- DC/status -->
 <div class="status" id="turn-dark">
-  <p>{{scraped_data.keys|length}} Results were found</p>
+  <p>{{payload.scraped_data.keys|length}} Results were found</p>
 </div>
 {% endblock %}
