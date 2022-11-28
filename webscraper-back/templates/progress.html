@@ -9,7 +9,21 @@
     <h2 style="text-align: center"><b>{{movie}}</b></h2>
     <ol>
       {% for link in links %}
-      <li><a href="{{link}}" style="color: #dd5d00"> {{movie}} </a></li>
+      <!-- <li><a href="{{link}}" style="color: #dd5d00"> {{movie}} </a></li> -->
+      <!-- The text field -->
+
+      <input type="text" value="{{link}}" id="myInput" class="hidden" />
+      <a
+        ><li
+          onclick="myFunction()"
+          class="pointer"
+          id="changeColor"
+          style="color: #dd2200"
+        >
+          {{movie}}
+        </li></a
+      >
+      <!-- <button onclick="myFunction()">Copy text</button> -->
       {% endfor %}
     </ol>
   </div>
