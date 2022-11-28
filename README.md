@@ -41,4 +41,4 @@ UP NEXT ...
 - [] Define data Items
 - []
 
-![[./src/docs/movie-scraper-screenshot-28-11-2022.png]]
+![movie-scraper-screenshot](./src/docs/movie-scraper-screenshot-28-11-2022.png)
