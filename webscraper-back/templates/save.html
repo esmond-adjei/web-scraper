@@ -1,0 +1,19 @@
+{% extends 'templates/main.html' %} {% load static %}
+
+<!-- MAIN CONTENT -->
+{% block content %}
+<div class="main">
+  <div class="link-card">
+    <img
+      src="{% static 'images/saved-png.png' %}"
+      alt="saved successfully"
+      width="200"
+      height="200"
+    />
+  </div>
+</div>
+
+<div class="status" id="turn-dark">
+  <p>Saved successfully!</p>
+</div>
+{% endblock %}
