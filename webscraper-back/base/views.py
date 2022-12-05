@@ -2,9 +2,8 @@ from django.shortcuts import render
 from .scrapealgo import *
 from .scrapeTools import IMDB
 
+import json
 # Create your views here.
-
-SOMETHINGELSE = {}
 
 
 def index(request):
@@ -37,21 +36,22 @@ def progress(request):
             imglnk = '#'
     else:
         imglnk = '#'
-    # print("========== data ============\n")
-    # for k, v in scraped_data.items():
-    #     print('>>', k, '\n\t', v)
+
     scraped_data = {k: v for k, v in scraped_data.items() if v}
 
     PAYLOAD = {'scraped_data': scraped_data, 'query': query, 'imglnk': imglnk}
-    SOMETHINGELSE = PAYLOAD
+    with open('tmp.json', 'w') as wf:
+        print("\n-->> Saving to JSON\n")
+        json.dump(PAYLOAD, wf, indent=2)
+
     return render(request, 'progress.html', {'payload': PAYLOAD})
 
 
 def save(request):
-    # scraped_data = PAYLOAD['scraped_data']
-    # query = PAYLOAD['query']
-    # imglnk = PAYLOAD['imglnk']
 
-    # print(scraped_data, "\n", query, "\n", imglnk)
-    print("+++++++++++++++>> Payload: ", SOMETHINGELSE)
+    PAYLOAD = {}
+    with open('tmp.json') as rf:
+        print("\n-->> Reading JSON\n")
+        PAYLOAD = json.load(rf)
+    print("-->> Query is :", PAYLOAD['query'])
     return render(request, 'save.html')
