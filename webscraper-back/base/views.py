@@ -49,9 +49,7 @@ def progress(request):
 
 def save(request):
 
-    PAYLOAD = {}
     with open('tmp.json') as rf:
         print("\n-->> Reading JSON\n")
         PAYLOAD = json.load(rf)
-    print("-->> Query is :", PAYLOAD['query'])
     return render(request, 'save.html')
