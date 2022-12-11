@@ -19,8 +19,16 @@
           <div class="profile-details">
             <img src="{% static 'images/Mum.jpg' %}" alt="profile picture" />
             <div>
+              {% if request.user.is_authenticated %}
+              <p class="text-2xl">
+                {{request.user.first_name|title}} ({{request.user.username}})
+                <p><small
+                  >{{request.user.movie_set.all|length}} Movies Saved 💖</small
+                ></p>
+              </p>
+              {% else %}
               <p class="text-2xl">Jane Doe</p>
-              <p><small>level 3 scraper 💖</small></p>
+              {% endif %}
             </div>
           </div>
 
@@ -33,7 +41,11 @@
             </div>
 
             <div class="logout">
-              <a href=""><span>logout</span></a>
+              {% if request.user.is_authenticated %}
+              <a href="{% url 'logout' %}"><span>logout</span></a>
+              {% else %}
+              <a href="{% url 'login' %}"><span>login</span></a>
+              {% endif %}
             </div>
           </div>
         </div>
@@ -43,11 +55,23 @@
       <div class="search-bar">
         <hr />
         <form action="progress" method="get">
+          <!-- {% csrf_token %} -->
           <div class="search">
             <input
               type="search"
               name="query"
+              {%if
+              payload.query
+              !=""
+              %}
+              placeholder="{{payload.query}}"
+              {%
+              else
+              %}
               placeholder="search for a movie..."
+              {%
+              endif
+              %}
             />
             <input type="submit" value="Scrape" />
           </div>
@@ -88,13 +112,13 @@
           </p>
         </div>
         {% block content %} {% endblock %}
-      </div>
+      <!-- </div> -->
       <!-- FOOTER -->
-      <div class="footer">
+      <!-- <div class="footer">
         <small>copyright @2022</small>
         <small>xmon</small>
       </div>
     </main>
   </body>
   <script src="{% static 'js/turndark.js' %}"></script>
-</html>
+</html> -->

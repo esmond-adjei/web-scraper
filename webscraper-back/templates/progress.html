@@ -37,12 +37,24 @@
   <!-- end of content -->
 </div>
 
+{% if payload.scraped_data|length > 0 %}
 <a href="{% url 'save' %}">
   <div class="see-more">Save</div>
 </a>
+{% endif %}
 
-<!-- DC/status -->
-<div class="status" id="turn-dark">
-  <p>{{payload.scraped_data.keys|length}} Results were found</p>
-</div>
+      <!-- DC/status -->
+      <div class="status" id="turn-dark">
+        <p>{{payload.scraped_data.keys|length}} Results were found</p>
+      </div>
+      <div class="footer">
+      <!-- FOOTER -->
+        <small>copyright @2022</small>
+        <small>xmon</small>
+        </div>
+      </div>
+    </main>
+  </body>
+  <script src="{% static 'js/turndark.js' %}"></script>
+</html>
 {% endblock %}

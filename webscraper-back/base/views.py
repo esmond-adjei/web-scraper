@@ -1,14 +1,54 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .scrapealgo import *
 from .scrapeTools import IMDB
 
+from .models import Movie
+from .form import RegisterForm
+from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
+
+import json
 # Create your views here.
 
-SOMETHINGELSE = {}
+
+def registerPage(request):
+    registerForm = RegisterForm()
+    if request.method == 'POST':
+        registerForm = RegisterForm(request.POST)
+        if registerForm.is_valid():
+            registerForm.save()
+            # user = registerForm.clean_data.get('username')
+            # messages.success(request, 'Account was created for' + user)
+
+            return redirect('login')
+
+    context = {'form': registerForm}
+    return render(request, 'register.html', context)
+
+
+def loginPage(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('index')
+        else:
+            messages.info(request, 'username OR password is incorrect')
+
+    context = {}
+    return render(request, 'login.html', context)
 
 
 def index(request):
-    return render(request, 'index.html')
+    try:
+        movie_data = Movie.objects.all()
+    except:
+        print("User not logged in, yet")  # This is not true as of 2022/12/11
+
+    return render(request, 'index.html', {'movie_data': movie_data})
 
 
 def progress(request):
@@ -30,28 +70,52 @@ def progress(request):
     print('='*50)
     if download_img == 'yes':
         try:
-            imglnk = IMDB(query, True, 0.7)
-            # print(imglnk)
+            imglnk = IMDB(query)
         except:
             print("COULD NOT OBTAIN IMAGE FILE")
             imglnk = '#'
     else:
         imglnk = '#'
-    # print("========== data ============\n")
-    # for k, v in scraped_data.items():
-    #     print('>>', k, '\n\t', v)
+
     scraped_data = {k: v for k, v in scraped_data.items() if v}
 
     PAYLOAD = {'scraped_data': scraped_data, 'query': query, 'imglnk': imglnk}
-    SOMETHINGELSE = PAYLOAD
+    with open('tmp.json', 'w') as wf:
+        print("\n-->> Saving to JSON\n")
+        json.dump(PAYLOAD, wf, indent=2)
+
     return render(request, 'progress.html', {'payload': PAYLOAD})
 
 
 def save(request):
-    # scraped_data = PAYLOAD['scraped_data']
-    # query = PAYLOAD['query']
-    # imglnk = PAYLOAD['imglnk']
 
-    # print(scraped_data, "\n", query, "\n", imglnk)
-    print("+++++++++++++++>> Payload: ", SOMETHINGELSE)
-    return render(request, 'save.html')
+    with open('tmp.json') as rf:
+        print("\n-->> Reading JSON\n")
+        PAYLOAD = json.load(rf)
+
+    for movie, links in PAYLOAD['scraped_data'].items():
+        # 'get_or_create()' -> checks if not present then create, else get. But we use the get for nothing
+
+        retrieved, created = Movie.objects.get_or_create(
+            query=PAYLOAD['query'],
+            moviename=movie,
+            movielink=", ".join(links),
+            imagelink=PAYLOAD['imglnk']
+        )
+    PAYLOAD = {'retrieved': retrieved, 'created': created}
+
+    return render(request, 'save.html', {'payload': PAYLOAD})
+
+
+def selectMovie(request, moviename):
+    movie_object = Movie.objects.get(moviename=moviename)
+    # {'scraped_data': scraped_data, 'query': query, 'imglnk': imglnk}
+    movielink = movie_object.movielink.split(',')
+    scraped_data = {movie_object.moviename: movielink}
+    PAYLOAD = {
+        'scraped_data': scraped_data,
+        'query': movie_object.query,
+        'imglnk': movie_object.imagelink
+    }
+    print(">>>>> PAYLOAD: ", PAYLOAD)
+    return render(request, 'progress.html', {'payload': PAYLOAD})

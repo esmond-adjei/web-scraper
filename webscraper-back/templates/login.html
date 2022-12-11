@@ -10,19 +10,21 @@
     <title>Login</title>
   </head>
   <body>
-    <div class="content">
-      <main>
-        <h1>Login</h1>
+    <div class="content" style="padding: 20px">
+      <h1>Login</h1>
 
-        <form method="POST" action="">
-          {% csrf_token %} {{form.as_p}}
-
-          <input class="button-class" type="submit" value="Login" />
-          <button class="button-class">
-            <a href="{% url 'register' %}" style="color: white">Register</a>
-          </button>
-        </form>
-      </main>
+      <form method="POST" action="">
+        {% csrf_token %}
+        <input type="text" name="username" placeholder="Enter user name" />
+        <br />
+        <input type="password" name="password" placeholder="Enter password" />
+        <br />
+        <input class="button-class" type="submit" value="Login" />
+        <p>
+          Don't have an account?
+          <a href="{% url 'register' %}" style="color: green">sign up</a>
+        </p>
+      </form>
     </div>
   </body>
 </html>
