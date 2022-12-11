@@ -89,7 +89,8 @@ def save(request):
         PAYLOAD = json.load(rf)
 
     for movie, links in PAYLOAD['scraped_data'].items():
-        Movie.objects.create(
+        # 'get_or_create()' -> checks if not present then create, else get. But we use the get for nothing
+        Movie.objects.get_or_create(
             query=PAYLOAD['query'],
             moviename=movie,
             movielink=", ".join(links),
