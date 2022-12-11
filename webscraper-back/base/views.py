@@ -1,9 +1,45 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .scrapealgo import *
 from .scrapeTools import IMDB
 
+from .models import Movie
+from .form import RegisterForm
+from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
+
 import json
 # Create your views here.
+
+
+def registerPage(request):
+    registerForm = RegisterForm()
+    if request.method == 'POST':
+        registerForm = RegisterForm(request.POST)
+        if registerForm.is_valid():
+            registerForm.save()
+            # user = registerForm.clean_data.get('username')
+            # messages.success(request, 'Account was created for' + user)
+
+            return redirect('login')
+
+    context = {'form': registerForm}
+    return render(request, 'register.html', context)
+
+
+def loginPage(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('index')
+        else:
+            messages.info(request, 'username OR password is incorrect')
+
+    context = {}
+    return render(request, 'login.html', context)
 
 
 def index(request):
@@ -29,8 +65,7 @@ def progress(request):
     print('='*50)
     if download_img == 'yes':
         try:
-            imglnk = IMDB(query, True, 0.7)
-            # print(imglnk)
+            imglnk = IMDB(query)
         except:
             print("COULD NOT OBTAIN IMAGE FILE")
             imglnk = '#'
@@ -52,4 +87,13 @@ def save(request):
     with open('tmp.json') as rf:
         print("\n-->> Reading JSON\n")
         PAYLOAD = json.load(rf)
+
+    for movie, links in PAYLOAD['scraped_data'].items():
+        Movie.objects.create(
+            query=PAYLOAD['query'],
+            moviename=movie,
+            movielink=", ".join(links),
+            imagelink=PAYLOAD['imglnk']
+        )
+
     return render(request, 'save.html')
