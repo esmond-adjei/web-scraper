@@ -43,7 +43,12 @@ def loginPage(request):
 
 
 def index(request):
-    return render(request, 'index.html')
+    try:
+        movie_data = Movie.objects.all()
+    except:
+        print("User not logged in, yet")  # This is not true as of 2022/12/11
+
+    return render(request, 'index.html', {'movie_data': movie_data})
 
 
 def progress(request):
@@ -90,11 +95,27 @@ def save(request):
 
     for movie, links in PAYLOAD['scraped_data'].items():
         # 'get_or_create()' -> checks if not present then create, else get. But we use the get for nothing
-        Movie.objects.get_or_create(
+
+        retrieved, created = Movie.objects.get_or_create(
             query=PAYLOAD['query'],
             moviename=movie,
             movielink=", ".join(links),
             imagelink=PAYLOAD['imglnk']
         )
+    PAYLOAD = {'retrieved': retrieved, 'created': created}
 
-    return render(request, 'save.html')
+    return render(request, 'save.html', {'payload': PAYLOAD})
+
+
+def selectMovie(request, moviename):
+    movie_object = Movie.objects.get(moviename=moviename)
+    # {'scraped_data': scraped_data, 'query': query, 'imglnk': imglnk}
+    movielink = movie_object.movielink.split(',')
+    scraped_data = {movie_object.moviename: movielink}
+    PAYLOAD = {
+        'scraped_data': scraped_data,
+        'query': movie_object.query,
+        'imglnk': movie_object.imagelink
+    }
+    print(">>>>> PAYLOAD: ", PAYLOAD)
+    return render(request, 'progress.html', {'payload': PAYLOAD})

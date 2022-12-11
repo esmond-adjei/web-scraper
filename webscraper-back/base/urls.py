@@ -9,4 +9,5 @@ urlpatterns = [
     path('login', LogoutView.as_view(next_page='login'), name='logout'),
     path('progress', views.progress, name='progress'),
     path('save', views.save, name='save'),
+    path('select-movie/<str:moviename>', views.selectMovie, name='select-movie'),
 ]
