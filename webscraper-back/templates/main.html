@@ -36,19 +36,24 @@
           </div>
 
           <div class="profile-settings">
+            <!-- edit profile settings -->
+            <div class="link-button">
+              <a href="#"><span>Settings</span></a>
+            </div>
+            <!-- logout or login -->
+            <div class="link-button">
+              {% if request.user.is_authenticated %}
+              <a href="{% url 'logout' %}"><span>Logout</span></a>
+              {% else %}
+              <a href="{% url 'login' %}"><span>Login</span></a>
+              {% endif %}
+            </div>
+            <!-- toggle dark mode -->
             <div class="toggle-dark">
               <input type="checkbox" class="checkbox" id="checkbox" />
               <label for="checkbox" class="label">
                 <div class="ball"></div>
               </label>
-            </div>
-
-            <div class="logout">
-              {% if request.user.is_authenticated %}
-              <a href="{% url 'logout' %}"><span>logout</span></a>
-              {% else %}
-              <a href="{% url 'login' %}"><span>login</span></a>
-              {% endif %}
             </div>
           </div>
         </div>
