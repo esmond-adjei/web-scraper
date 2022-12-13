@@ -25,6 +25,9 @@
                 <p><small
                   >{{request.user.movie_set.all|length}} Movies Saved 💖</small
                 ></p>
+                <p><small style="color: #dd5d00"
+                  ><a href="{% url 'my-scrapes' %}">{{request.user.first_name}}'s List</a></small
+                ></p>
               </p>
               {% else %}
               <p class="text-2xl">Jane Doe</p>
@@ -60,18 +63,7 @@
             <input
               type="search"
               name="query"
-              {%if
-              payload.query
-              !=""
-              %}
-              placeholder="{{payload.query}}"
-              {%
-              else
-              %}
               placeholder="search for a movie..."
-              {%
-              endif
-              %}
             />
             <input type="submit" value="Scrape" />
           </div>
@@ -112,13 +104,3 @@
           </p>
         </div>
         {% block content %} {% endblock %}
-      <!-- </div> -->
-      <!-- FOOTER -->
-      <!-- <div class="footer">
-        <small>copyright @2022</small>
-        <small>xmon</small>
-      </div>
-    </main>
-  </body>
-  <script src="{% static 'js/turndark.js' %}"></script>
-</html> -->

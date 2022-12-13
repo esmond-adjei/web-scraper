@@ -65,7 +65,8 @@ def scrape(addr):
         return response
     except Exception:
         print('UNABLE TO EXTABLISH A CONNECTION WITH %s' % addr)
-        exit()
+        # exit()
+        return
 
 # PROCESSING
 # FIND KEYS

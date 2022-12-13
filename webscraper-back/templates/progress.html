@@ -30,14 +30,18 @@
   {% empty %}
   <div class="link-card slide-top">
     <p style="text-align: center">
-      Sorry... No results found for <b>{{payload.query}}</b>
+      Sorry... No results found for <b>{{payload.query}} from our online source</b>
     </p>
   </div>
   {% endfor %}
   <!-- end of content -->
 </div>
 
-{% if payload.scraped_data|length > 0 %}
+{% if not request.user.is_authenticated and payload.scraped %} <!-- user not auth -->
+<a href="{% url 'login' %}">
+  <div class="see-more">Login to save</div>
+</a>
+{% elif payload.scraped_data|length > 0 and payload.scraped %} <!-- user auth and payload-->
 <a href="{% url 'save' %}">
   <div class="see-more">Save</div>
 </a>
@@ -49,8 +53,8 @@
       </div>
       <div class="footer">
       <!-- FOOTER -->
-        <small>copyright @2022</small>
-        <small>xmon</small>
+        <small>copyright 2022</small>
+        <small>@xmon</small>
         </div>
       </div>
     </main>

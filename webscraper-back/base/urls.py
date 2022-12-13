@@ -10,4 +10,6 @@ urlpatterns = [
     path('progress', views.progress, name='progress'),
     path('save', views.save, name='save'),
     path('select-movie/<str:moviename>', views.selectMovie, name='select-movie'),
+    path('select-movie/progress', views.progress, name='progress'),
+    path('my-scrapes', views.myScrapes, name='my-scrapes'),
 ]

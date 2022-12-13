@@ -4,77 +4,54 @@
 {% block content %}
 
 <div class="main">
-  {% for movie in request.user.movie_set.all %}
+  <div class="billboard" style="background-image: url('{% static 'images/escape_room.jpg' %}')">
+    <p>This is the billboard</p>
+    <p>This is the billboard</p>
+    <p>This is the billboard</p>
+  </div>
 
-  <a href="{% url 'select-movie' movie.moviename %}" class="card_link">
+  <a href="" class="card_link">
     <div
       class="card"
       style="background-image: url('{% static 'images/mulan.jpg' %}')"
     ></div>
     <div class="card_link_text">
-      <small>{{movie.moviename}}</small>
+      <small>Mulan</small>
     </div>
   </a>
-  {% empty %}
-  <p>No Movies Here!</p>
-  {% endfor %}
-
-  <!-- <a href="" class="card_link">
-    <div
-      class="card"
-      style="background-image: url('{% static 'images/mulan.jpg' %}')"
-    ></div>
-    <h1>mulan</h1>
-  </a>
   <a href="" class="card_link">
     <div
       class="card"
       style="background-image: url('{% static 'images/mulan.jpg' %}')"
     ></div>
-    <h1>mulan</h1>
+    <div class="card_link_text">
+      <small>Mulan</small>
+    </div>
   </a>
   <a href="" class="card_link">
     <div
       class="card"
-      style="background-image: url('{% static 'images/escape_room.jpg' %}')"
+      style="background-image: url('{% static 'images/mulan.jpg' %}')"
     ></div>
-    <h1>Escape Room</h1>
+    <div class="card_link_text">
+      <small>Mulan</small>
+    </div>
   </a>
-  <a href="" class="card_link">
-    <div
-      class="card"
-      style="background-image: url('{% static 'images/escape_room.jpg' %}')"
-    ></div>
-    <h1>Escape Room</h1>
-  </a>
-  <a href="" class="card_link">
-    <div
-      class="card"
-      style="background-image: url('{% static 'images/escape_room.jpg' %}')"
-    ></div>
-    <h1>Escape Room</h1>
-  </a> -->
-  <!-- <div class="see-more">
-    <a href="#"><p>See more</p></a>
-  </div> -->
+
+  <!-- REPEATS FOR ALL OTHER PAGES -->
 </div>
 
-<!-- REPEATS FOR ALL OTHER PAGES -->
-</div>
-<div >
-  <div class="see-more">
-    <a href="#"><p>See more</p></a>
-  </div>
+<div>
       <!-- DC/status -->
       <div class="status" id="turn-dark">
         <p>You are at the home page</p>
       </div>
       <div class="footer">
       <!-- FOOTER -->
-        <small>copyright @2022</small>
-        <small>xmon</small>
+        <small>copyright 2022</small>
+        <small>@xmon</small>
         </div>
-      </div>
+</div>
     </main>
   </body>
   <script src="{% static 'js/turndark.js' %}"></script>
