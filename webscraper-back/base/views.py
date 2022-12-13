@@ -1,11 +1,12 @@
 from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
+
 from .scrapealgo import *
 from .scrapeTools import IMDB
 
 from .models import Movie
 from .form import RegisterForm
-from django.contrib import messages
-from django.contrib.auth import authenticate, login, logout
 
 import json
 # Create your views here.
@@ -43,12 +44,13 @@ def loginPage(request):
 
 
 def index(request):
-    try:
-        movie_data = Movie.objects.all()
-    except:
-        print("User not logged in, yet")  # This is not true as of 2022/12/11
+    # try:
+    #     movie_data = Movie.objects.all()
+    # except:
+    #     print("User not logged in, yet")  # This is not true as of 2022/12/11
 
-    return render(request, 'index.html', {'movie_data': movie_data})
+    PAYLOAD = {'page_title': 'Scrape a movie'}
+    return render(request, 'index.html', {'payload': PAYLOAD})
 
 
 def progress(request):
@@ -57,7 +59,7 @@ def progress(request):
     # if query exists fetch from database else scrape online
     movie_obj_db = Movie.objects.filter(query=query)
     if len(movie_obj_db):
-        PAYLOAD = {}
+        PAYLOAD = {'page_title': str(query)}
         PAYLOAD['imglnk'] = fetch_from_db(movie_obj_db[0])['imglnk']
         PAYLOAD['scraped_data'] = fetch_from_db(movie_obj_db[0])[
             'scraped_data']
@@ -93,7 +95,7 @@ def progress(request):
         scraped_data = {k: v for k, v in scraped_data.items() if v}
 
         PAYLOAD = {'scraped_data': scraped_data,
-                   'query': query, 'imglnk': imglnk, 'scraped': True}
+                   'query': query, 'imglnk': imglnk, 'scraped': True, 'page_title': str(query)}
         with open('tmp.json', 'w') as wf:
             json.dump(PAYLOAD, wf, indent=2)
 
@@ -108,7 +110,6 @@ def save(request):
     created = False
     for movie, links in PAYLOAD['scraped_data'].items():
         # 'get_or_create()' -> checks if not present then create, else get. But we use the get for nothing
-
         if movie not in request.user.movie_set.all():
             Movie.objects.get_or_create(
                 username=request.user,
@@ -118,7 +119,9 @@ def save(request):
                 imagelink=PAYLOAD['imglnk']
             )
             created = True
-    PAYLOAD = {'created': created}
+
+    PAYLOAD = {'created': created,
+               'page_title': f"Results for {PAYLOAD['query']} saved"}
 
     return render(request, 'save.html', {'payload': PAYLOAD})
 
@@ -127,13 +130,15 @@ def selectMovie(request, moviename):
     movie_object = Movie.objects.get(moviename=moviename)
     # PAYLOAD STRUCTURE ==  {'scraped_data': scraped_data, 'query': query, 'imglnk': imglnk}
     PAYLOAD = fetch_from_db(movie_object)
-
+    PAYLOAD['page_title'] = moviename
     return render(request, 'progress.html', {'payload': PAYLOAD})
 
 
 def myScrapes(request):
     # payload has been coded into the template
-    return render(request, 'personal_scrapes.html')
+    PAYLOAD = {}
+    PAYLOAD['page_title'] = str(request.user.username) + "'s list"
+    return render(request, 'personal_scrapes.html', {'payload': PAYLOAD})
 
 
 # special function to fetch data from database
