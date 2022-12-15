@@ -1,5 +1,5 @@
 ### Django ###
-tmp.json
+webscraper-back/tmp.json
 *.log
 *.pot
 *.pyc
