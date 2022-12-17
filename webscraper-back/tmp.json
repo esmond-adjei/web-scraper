@@ -1,19 +1,11 @@
 {
+  "page_title": "Addams Family Values (1993)",
+  "imglnk": "#",
   "scraped_data": {
-    "Memory The Origins of Alien 2019": [
-      "http://dl13.f2m.co/film/Memory.The.Origins.of.Alien.2019.1080p.WEB-DL.Film2Movie_WS.mkv",
-      "http://dl13.f2m.co/film/Memory.The.Origins.of.Alien.2019.1080p.WEB-DL.x265.HEVC.Film2Movie_WS.mkv",
-      "http://dl13.f2m.co/film/Memory.The.Origins.of.Alien.2019.720p.WEB-DL.Film2Movie_WS.mkv",
-      "http://dl13.f2m.co/film/Memory.The.Origins.of.Alien.2019.720p.WEB-DL.x265.HEVC.Film2Movie_WS.mkv",
-      "http://dl13.f2m.co/film/Memory.The.Origins.of.Alien.2019.480p.WEB-DL.Film2Movie_WS.mkv"
-    ],
-    "Rememory 2017 720p HDRip mkv": [
-      "http://sv4avadl.uploadet.ir/Movie/2017/08/Rememory.2017.720p.HDRip.x264.AVADL.CO.mkv",
-      "http://sv4avadl.uploadet.ir/Movie/2017/08/HEVC.x265/Rememory.2017.720p.HDRip.x265.HEVC.AVADL.CO.mkv"
+    "Addams Family Values (1993)": [
+      "http://dl10.sermovie.xyz/Movies/1993/Addams.Family.Values/Addams.Family.Values.1993.1080p.BluRay.YIFY.Sermovie.mp4",
+      " http://dl10.sermovie.xyz/Movies/1993/Addams.Family.Values/Addams.Family.Values.1993.720p.BluRay.YIFY.Sermovie.mp4"
     ]
   },
-  "query": "memory",
-  "imglnk": "#",
-  "scraped": true,
-  "page_title": "memory"
+  "scraped": true
 }

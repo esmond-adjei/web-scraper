@@ -64,6 +64,10 @@ def progress(request):
         PAYLOAD['imglnk'] = fetch_from_db(movie_obj_db[0])['imglnk']
         PAYLOAD['scraped_data'] = fetch_from_db(movie_obj_db[0])[
             'scraped_data']
+
+        if not {m.moviename for m in movie_obj_db}.intersection({m.user_movie.moviename for m in request.user.usermovie_set.all()}):
+            PAYLOAD['scraped'] = True
+
         for movie_obj_index in range(1, len(movie_obj_db)):
             PAYLOAD['scraped_data'].update(fetch_from_db(
                 movie_obj_db[movie_obj_index])['scraped_data'])
@@ -126,6 +130,7 @@ def save(request):
                 user_movie=mov_obj,
                 username=request.user
             )
+            print(">> SAVED GLOBALLY")
         # if not in local...
         elif movie not in [mov_obj.user_movie.moviename for mov_obj in request.user.usermovie_set.all()]:
             UserMovie.objects.create(
@@ -133,6 +138,7 @@ def save(request):
                 username=request.user
             )
             created = True
+            print(">> SAVED LOCALLY")
         else:       # then movie already exists in local as well.
             created = False
 
