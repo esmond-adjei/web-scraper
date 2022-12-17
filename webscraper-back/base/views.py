@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 from .scrapealgo import *
 from .scrapeTools import IMDB
 
-from .models import Movie
+from .models import Movie, UserMovie
 from .form import RegisterForm
 
 import json
@@ -57,8 +57,9 @@ def progress(request):
 
     query = request.GET['query']
     # if query exists fetch from database else scrape online
-    movie_obj_db = Movie.objects.filter(query=query)
-    if len(movie_obj_db):
+    movie_obj_db = Movie.objects.filter(
+        query=query) or Movie.objects.filter(moviename=query)
+    if len(movie_obj_db) and 'rf::' not in query:   # rf:: if for forced query
         PAYLOAD = {'page_title': str(query)}
         PAYLOAD['imglnk'] = fetch_from_db(movie_obj_db[0])['imglnk']
         PAYLOAD['scraped_data'] = fetch_from_db(movie_obj_db[0])[
@@ -68,6 +69,8 @@ def progress(request):
                 movie_obj_db[movie_obj_index])['scraped_data'])
 
     else:
+        if 'rf::' in query:     # remove fored query
+            query = query[4:]
         movie_type = request.GET['movie-type']
         try:
             download_img = request.GET['download-img']
@@ -109,16 +112,29 @@ def save(request):
 
     created = False
     for movie, links in PAYLOAD['scraped_data'].items():
-        # 'get_or_create()' -> checks if not present then create, else get. But we use the get for nothing
-        if movie not in request.user.movie_set.all():
-            Movie.objects.get_or_create(
-                username=request.user,
+        # check if movie is present before saving it.
+        # if not in global, then not in local
+        if movie not in [movie.moviename for movie in Movie.objects.all()]:
+            mov_obj = Movie.objects.create(
                 query=PAYLOAD['query'],
                 moviename=movie,
                 movielink=", ".join(links),
                 imagelink=PAYLOAD['imglnk']
             )
+
+            UserMovie.objects.create(
+                user_movie=mov_obj,
+                username=request.user
+            )
+        # if not in local...
+        elif movie not in [mov_obj.user_movie.moviename for mov_obj in request.user.usermovie_set.all()]:
+            UserMovie.objects.create(
+                user_movie=Movie.objects.get(moviename=movie),
+                username=request.user
+            )
             created = True
+        else:       # then movie already exists in local as well.
+            created = False
 
     PAYLOAD = {'created': created,
                'page_title': f"Results for {PAYLOAD['query']} saved"}
@@ -138,6 +154,7 @@ def myScrapes(request):
     # payload has been coded into the template
     PAYLOAD = {}
     PAYLOAD['page_title'] = str(request.user.username) + "'s list"
+
     return render(request, 'personal_scrapes.html', {'payload': PAYLOAD})
 
 

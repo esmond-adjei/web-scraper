@@ -4,15 +4,15 @@
 {% block content %}
 
 <div class="main">
-    {% for movie in request.user.movie_set.all %}
+    {% for usermovie in request.user.usermovie_set.all %}
   
-    <a href="{% url 'select-movie' movie.moviename %}" class="card_link">
+    <a href="{% url 'select-movie' usermovie.user_movie.moviename %}" class="card_link">
       <div
         class="card"
         style="background-image: url('{% static 'images/mulan.jpg' %}')"
       ></div>
       <div class="card_link_text">
-        <small>{{movie.moviename}}</small>
+        <small>{{usermovie.user_movie.moviename}}</small>
       </div>
     </a>
     {% empty %}

@@ -6,7 +6,6 @@ from django.contrib.auth.models import User
 
 
 class Movie(models.Model):
-    username = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
     query = models.CharField(max_length=100)
     moviename = models.CharField(max_length=256, unique=True)
     movielink = models.TextField(null=True, blank=True)
@@ -15,3 +14,11 @@ class Movie(models.Model):
 
     def __str__(self):
         return self.moviename
+
+
+class UserMovie(models.Model):
+    user_movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
+    username = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return str(self.username) + '_' + self.user_movie.moviename
