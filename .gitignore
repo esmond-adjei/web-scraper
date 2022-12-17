@@ -1,5 +1,5 @@
+tmp.json
 ### Django ###
-webscraper-back/tmp.json
 *.log
 *.pot
 *.pyc
@@ -169,3 +169,4 @@ cython_debug/
 #.idea/
 
 # End of https://www.toptal.com/developers/gitignore/api/django
+webscraper-back/tmp.json
