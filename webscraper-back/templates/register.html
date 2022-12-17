@@ -7,11 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="{% static 'style.css' %}" rel="stylesheet" type="text/css" />
 
-    <title>{{request.user|capfirst}} To-Do List</title>
+    <title>Register Account</title>
   </head>
 
   <body>
-    <div class="content">
+    <div class="content" style="padding: 20px">
       <main>
         <h1>Register</h1>
 
@@ -19,12 +19,22 @@
           {% csrf_token %}
           <label>{{form.username.label}}</label>
           {{form.username}}
-
+          <br />
+          <label>{{form.first_name.label}}</label>
+          {{form.first_name}}
+          <br />
+          <label>{{form.last_name.label}}</label>
+          {{form.last_name}}
+          <br />
+          <label>{{form.email.label}}</label>
+          {{form.email}}
+          <br />
           <label>{{form.password1.label}}</label>
           {{form.password1}}
-
+          <br />
           <label>{{form.password2.label}}</label>
           {{form.password2}}
+          <br />
 
           <input class="button-class" type="submit" value="Register" />
         </form>

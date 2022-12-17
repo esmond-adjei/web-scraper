@@ -4,55 +4,56 @@
 {% block content %}
 
 <div class="main">
-  <a href="" class="card_link">
-    <div
-      class="card"
-      style="background-image: url('{% static 'images/mulan.jpg' %}')"
-    ></div>
-    <h1>mulan</h1>
-  </a>
-  <a href="" class="card_link">
-    <div
-      class="card"
-      style="background-image: url('{% static 'images/mulan.jpg' %}')"
-    ></div>
-    <h1>mulan</h1>
-  </a>
-  <a href="" class="card_link">
-    <div
-      class="card"
-      style="background-image: url('{% static 'images/mulan.jpg' %}')"
-    ></div>
-    <h1>mulan</h1>
-  </a>
-  <a href="" class="card_link">
-    <div
-      class="card"
-      style="background-image: url('{% static 'images/escape_room.jpg' %}')"
-    ></div>
-    <h1>Escape Room</h1>
-  </a>
-  <a href="" class="card_link">
-    <div
-      class="card"
-      style="background-image: url('{% static 'images/escape_room.jpg' %}')"
-    ></div>
-    <h1>Escape Room</h1>
-  </a>
-  <a href="" class="card_link">
-    <div
-      class="card"
-      style="background-image: url('{% static 'images/escape_room.jpg' %}')"
-    ></div>
-    <h1>Escape Room</h1>
-  </a>
-  <div class="see-more">
-    <a href="#"><p>See more</p></a>
+  <div class="billboard" style="background-image: url('{% static 'images/escape_room.jpg' %}')">
+    <p>This is the billboard</p>
+    <p>This is the billboard</p>
+    <p>This is the billboard</p>
   </div>
+
+  <a href="" class="card_link">
+    <div
+      class="card"
+      style="background-image: url('{% static 'images/mulan.jpg' %}')"
+    ></div>
+    <div class="card_link_text">
+      <small>Mulan</small>
+    </div>
+  </a>
+  <a href="" class="card_link">
+    <div
+      class="card"
+      style="background-image: url('{% static 'images/mulan.jpg' %}')"
+    ></div>
+    <div class="card_link_text">
+      <small>Mulan</small>
+    </div>
+  </a>
+  <a href="" class="card_link">
+    <div
+      class="card"
+      style="background-image: url('{% static 'images/mulan.jpg' %}')"
+    ></div>
+    <div class="card_link_text">
+      <small>Mulan</small>
+    </div>
+  </a>
+
+  <!-- REPEATS FOR ALL OTHER PAGES -->
 </div>
 
-<!-- DC/status -->
-<div class="status" id="turn-dark">
-  <p>You are at the home page</p>
+<div>
+      <!-- DC/status -->
+      <div class="status" id="turn-dark">
+        <p>You are at the home page</p>
+      </div>
+      <div class="footer">
+      <!-- FOOTER -->
+        <small>copyright 2022</small>
+        <small>@xmon</small>
+        </div>
 </div>
+    </main>
+  </body>
+  <script src="{% static 'js/turndark.js' %}"></script>
+</html>
 {% endblock %}

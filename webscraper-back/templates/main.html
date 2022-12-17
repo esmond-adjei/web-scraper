@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="{% static 'style.css' %}" />
     <link rel="stylesheet" href="{% static 'output.css' %}" />
-    <title>Home</title>
+    <title>{{payload.page_title}}</title>
   </head>
   <body id="turn-dark">
     <main class="content">
@@ -19,21 +19,41 @@
           <div class="profile-details">
             <img src="{% static 'images/Mum.jpg' %}" alt="profile picture" />
             <div>
+              {% if request.user.is_authenticated %}
+              <p class="text-2xl">
+                {{request.user.first_name|title}} ({{request.user.username}})
+                <p><small
+                  >{{request.user.movie_set.all|length}} Movies Saved 💖</small
+                ></p>
+                <p><small style="color: #dd5d00"
+                  ><a href="{% url 'my-scrapes' %}">{{request.user.first_name}}'s List</a></small
+                ></p>
+              </p>
+              {% else %}
               <p class="text-2xl">Jane Doe</p>
-              <p><small>level 3 scraper 💖</small></p>
+              {% endif %}
             </div>
           </div>
 
           <div class="profile-settings">
+            <!-- edit profile settings -->
+            <div class="link-button">
+              <a href="#"><span>Settings</span></a>
+            </div>
+            <!-- logout or login -->
+            <div class="link-button">
+              {% if request.user.is_authenticated %}
+              <a href="{% url 'logout' %}"><span>Logout</span></a>
+              {% else %}
+              <a href="{% url 'login' %}"><span>Login</span></a>
+              {% endif %}
+            </div>
+            <!-- toggle dark mode -->
             <div class="toggle-dark">
               <input type="checkbox" class="checkbox" id="checkbox" />
               <label for="checkbox" class="label">
                 <div class="ball"></div>
               </label>
-            </div>
-
-            <div class="logout">
-              <a href=""><span>logout</span></a>
             </div>
           </div>
         </div>
@@ -43,6 +63,7 @@
       <div class="search-bar">
         <hr />
         <form action="progress" method="get">
+          <!-- {% csrf_token %} -->
           <div class="search">
             <input
               type="search"
@@ -88,13 +109,3 @@
           </p>
         </div>
         {% block content %} {% endblock %}
-      </div>
-      <!-- FOOTER -->
-      <div class="footer">
-        <small>copyright @2022</small>
-        <small>xmon</small>
-      </div>
-    </main>
-  </body>
-  <script src="{% static 'js/turndark.js' %}"></script>
-</html>

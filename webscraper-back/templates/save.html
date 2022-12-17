@@ -3,6 +3,7 @@
 <!-- MAIN CONTENT -->
 {% block content %}
 <div class="main">
+  <div class="saved" style="display:flex; justify-content:center; width:-webkit-fill-available;">
   <div class="link-card">
     <img
       src="{% static 'images/saved-png.png' %}"
@@ -12,8 +13,26 @@
     />
   </div>
 </div>
-
-<div class="status" id="turn-dark">
-  <p>Saved successfully!</p>
 </div>
+
+</div>
+<div >
+      <!-- DC/status -->
+      <div class="status" id="turn-dark">
+        {% if payload.created %}
+        <p>Saved successfully!</p>
+        {% else %}
+        <p>Movie already exists</p>
+        {% endif %}
+      </div>
+      <div class="footer">
+      <!-- FOOTER -->
+        <small>copyright 2022</small>
+        <small>@xmon</small>
+        </div>
+      </div>
+    </main>
+  </body>
+  <script src="{% static 'js/turndark.js' %}"></script>
+</html>
 {% endblock %}

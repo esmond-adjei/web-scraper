@@ -65,7 +65,8 @@ def scrape(addr):
         return response
     except Exception:
         print('UNABLE TO EXTABLISH A CONNECTION WITH %s' % addr)
-        exit()
+        # exit()
+        return
 
 # PROCESSING
 # FIND KEYS
@@ -170,6 +171,3 @@ def IMDB(movieKeyword, compress=False, compression_factor=1):
 def saveAs(data, filename, extension='.txt', writeType='a', path="C:/Users/esmon/Desktop/scrapes/"):
     with open(path+'_'.join(filename.capitalize().split())+extension, writeType) as movieFile:
         movieFile.write(data)
-
-
-# CREATE HTML
