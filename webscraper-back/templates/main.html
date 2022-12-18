@@ -65,11 +65,19 @@
         <form action="progress" method="get">
           <!-- {% csrf_token %} -->
           <div class="search">
+          {% if payload.query|length %}
+            <input
+              type="search"
+              name="query"
+              placeholder="{{payload.query}}"
+            />
+            {% else %}
             <input
               type="search"
               name="query"
               placeholder="search for a movie..."
             />
+            {% endif %}
             <input type="submit" value="Scrape" />
           </div>
 

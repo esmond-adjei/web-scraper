@@ -57,38 +57,52 @@ def progress(request):
 
     query = request.GET['query']
     # if query exists fetch from database else scrape online
+    # - need to have a special function that searches query from database:: movie queries or movie names
+    PAYLOAD = {'scraped_data': '', 'imglnk': '', 'movie_type': '',
+               'query': query, 'page_title': query, 'is_local': False}
     movie_obj_db = Movie.objects.filter(
-        query=query) or Movie.objects.filter(moviename=query)
-    if len(movie_obj_db) and 'rf::' not in query:   # rf:: if for forced query
-        PAYLOAD = {'page_title': str(query)}
-        PAYLOAD['imglnk'] = fetch_from_db(movie_obj_db[0])['imglnk']
-        PAYLOAD['scraped_data'] = fetch_from_db(movie_obj_db[0])[
-            'scraped_data']
+        query__icontains=query) or Movie.objects.filter(moviename__icontains=query)
 
-        if not {m.moviename for m in movie_obj_db}.intersection({m.user_movie.moviename for m in request.user.usermovie_set.all()}):
-            PAYLOAD['scraped'] = True
+    if 'rf::' not in query and len(movie_obj_db):   # rf:: if for forced query
+        # core properties of payload
+        first_obj = fetch_from_db(movie_obj_db[0])
+        PAYLOAD['imglnk'] = first_obj['imglnk']
+        PAYLOAD['scraped_data'] = first_obj['scraped_data']
+        PAYLOAD['movie_type'] = first_obj['movie_type']
 
-        for movie_obj_index in range(1, len(movie_obj_db)):
+        # check if global movie is also local
+        isLocal = {m.moviename for m in movie_obj_db}.difference(
+            {m.user_movie.moviename for m in request.user.usermovie_set.all()})
+        if isLocal:
+            PAYLOAD['is_local'] = False
+        else:
+            PAYLOAD['is_local'] = True
+
+        # fetch from database in desired format and create a merged desired format
+        for index in range(1, len(movie_obj_db)):
             PAYLOAD['scraped_data'].update(fetch_from_db(
-                movie_obj_db[movie_obj_index])['scraped_data'])
+                movie_obj_db[index])['scraped_data'])
 
     else:
         if 'rf::' in query:     # remove fored query
             query = query[4:]
         movie_type = request.GET['movie-type']
-        try:
-            download_img = request.GET['download-img']
-        except:
-            download_img = ''
-
-        if query.strip().replace("+", "") == '':
-            scraped_data = {}
-        else:
-            address, movieKeyword = getAddress(movie_type, query)
-            scraped_data = recursiveScrape(
-                find_tag('a', scrape(address)), movieKeyword.lower())
+        PAYLOAD['movie_type'] = movie_type
+        # make address based on movie type
 
         # option to download image
+        try:
+            if query.strip().replace("+", "") == '':    # if query is empty, return nothing
+                scraped_data = {}
+            else:
+                address, movieKeyword = getAddress(movie_type, query)
+                scraped_data = recursiveScrape(
+                    find_tag('a', scrape(address)), movieKeyword.lower())
+            download_img = request.GET['download-img']
+        except:
+            scraped_data = {}
+            download_img = ''
+
         print('='*50)
         if download_img == 'yes':
             try:
@@ -99,12 +113,17 @@ def progress(request):
         else:
             imglnk = '#'
 
+        # clean scraped data. remove all empty links
         scraped_data = {k: v for k, v in scraped_data.items() if v}
 
-        PAYLOAD = {'scraped_data': scraped_data,
-                   'query': query, 'imglnk': imglnk, 'scraped': True, 'page_title': str(query)}
-        with open('tmp.json', 'w') as wf:
-            json.dump(PAYLOAD, wf, indent=2)
+        PAYLOAD.update({'scraped_data': scraped_data, 'query': query,
+                        'imglnk': imglnk, 'movie_type': movie_type})
+
+        # save to global database
+        save_global_db(PAYLOAD=PAYLOAD)
+
+    with open('tmp.json', 'w') as wf:
+        json.dump(PAYLOAD, wf, indent=2)
 
     return render(request, 'progress.html', {'payload': PAYLOAD})
 
@@ -114,35 +133,25 @@ def save(request):
     with open('tmp.json') as rf:
         PAYLOAD = json.load(rf)
 
-    created = False
-    for movie, links in PAYLOAD['scraped_data'].items():
-        # check if movie is present before saving it.
-        # if not in global, then not in local
-        if movie not in [movie.moviename for movie in Movie.objects.all()]:
-            mov_obj = Movie.objects.create(
-                query=PAYLOAD['query'],
-                moviename=movie,
-                movielink=", ".join(links),
-                imagelink=PAYLOAD['imglnk']
-            )
-
-            UserMovie.objects.create(
-                user_movie=mov_obj,
-                username=request.user
-            )
-            print(">> SAVED GLOBALLY")
-        # if not in local...
-        elif movie not in [mov_obj.user_movie.moviename for mov_obj in request.user.usermovie_set.all()]:
+    is_created = False
+    # get movie from global database and save to local
+    # check if movie exist locally before attempting to save
+    payload_data = {mv for mv in PAYLOAD['scraped_data'].keys()}
+    user_data = {
+        mv.user_movie.moviename for mv in request.user.usermovie_set.all()}
+    payload_not_in_user_data = payload_data.difference(user_data)
+    if payload_not_in_user_data:
+        for movie in payload_not_in_user_data:
             UserMovie.objects.create(
                 user_movie=Movie.objects.get(moviename=movie),
                 username=request.user
             )
-            created = True
+            is_created = True
             print(">> SAVED LOCALLY")
-        else:       # then movie already exists in local as well.
-            created = False
+    else:       # then movie already exists in local as well.
+        is_created = False
 
-    PAYLOAD = {'created': created,
+    PAYLOAD = {'is_created': is_created,
                'page_title': f"Results for {PAYLOAD['query']} saved"}
 
     return render(request, 'save.html', {'payload': PAYLOAD})
@@ -170,7 +179,7 @@ def fetch_from_db(movie_object):
         parameter: a movie object from django.models
         manipulation: fetches the movie object details and parse them into a dictionary format
         return: returns a dictionary object with the elements of the movie object organized in the format: 
-                {'scraped_data':<something>, 'imglnk':<something>, 'scraped':<something>}
+                {'scraped_data':<something>, 'imglnk':<something>, 'is_local':<something>}
     '''
 
     movielink = movie_object.movielink.split(',')
@@ -178,6 +187,20 @@ def fetch_from_db(movie_object):
     PAYLOAD = {
         'scraped_data': scraped_data,
         'imglnk': movie_object.imagelink,
-        'scraped': False,
+        'movie_type': movie_object.movie_type,
     }
     return PAYLOAD
+
+
+def save_global_db(PAYLOAD):
+    if PAYLOAD['scraped_data']:
+        for movie, links in PAYLOAD['scraped_data'].items():
+            # check if movie is present before saving it.
+            if movie not in [movie.moviename for movie in Movie.objects.all()]:
+                Movie.objects.create(
+                    query=PAYLOAD['query'],
+                    moviename=movie,
+                    movielink=", ".join(links),
+                    imagelink=PAYLOAD['imglnk'],
+                    movie_type=PAYLOAD['movie_type']
+                )

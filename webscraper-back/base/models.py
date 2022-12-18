@@ -9,7 +9,8 @@ class Movie(models.Model):
     query = models.CharField(max_length=100)
     moviename = models.CharField(max_length=256, unique=True)
     movielink = models.TextField(null=True, blank=True)
-    imagelink = models.CharField(max_length=2000, null=True, blank=True)
+    imagelink = models.CharField(max_length=500, null=True, blank=True)
+    movie_type = models.CharField(max_length=50, null=True, blank=True)
     datecreated = models.DateTimeField(auto_now_add=True, blank=True)
 
     def __str__(self):
