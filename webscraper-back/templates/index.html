@@ -10,33 +10,19 @@
     <p>This is the billboard</p>
   </div>
 
-  <a href="" class="card_link">
+  {% for movie in payload.latest_movies %}
+  <a href="{% url 'select-movie' movie %}" class="card_link">
     <div
       class="card"
       style="background-image: url('{% static 'images/mulan.jpg' %}')"
     ></div>
     <div class="card_link_text">
-      <small>Mulan</small>
+      <small>{{movie}}</small>
     </div>
   </a>
-  <a href="" class="card_link">
-    <div
-      class="card"
-      style="background-image: url('{% static 'images/mulan.jpg' %}')"
-    ></div>
-    <div class="card_link_text">
-      <small>Mulan</small>
-    </div>
-  </a>
-  <a href="" class="card_link">
-    <div
-      class="card"
-      style="background-image: url('{% static 'images/mulan.jpg' %}')"
-    ></div>
-    <div class="card_link_text">
-      <small>Mulan</small>
-    </div>
-  </a>
+  {% empty %}
+  <p><b>Scrape</b> movies to see what is latest</p>
+  {% endfor %}
 
   <!-- REPEATS FOR ALL OTHER PAGES -->
 </div>

@@ -25,6 +25,7 @@ a:hover {
   background-color: #790f0f;
   width: 120px;
   margin: 0;
+  padding: 5px;
   color: #eeee;
   border-radius: 0 0 5px 5px;
 }

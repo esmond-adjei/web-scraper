@@ -23,7 +23,7 @@
               <p class="text-2xl">
                 {{request.user.first_name|title}} ({{request.user.username}})
                 <p><small
-                  >{{request.user.movie_set.all|length}} Movies Saved 💖</small
+                  >{{request.user.usermovie_set.all|length}} Movies Saved 💖</small
                 ></p>
                 <p><small style="color: #dd5d00"
                   ><a href="{% url 'my-scrapes' %}">{{request.user.first_name}}'s List</a></small
@@ -65,11 +65,19 @@
         <form action="progress" method="get">
           <!-- {% csrf_token %} -->
           <div class="search">
+          {% if payload.query|length %}
+            <input
+              type="search"
+              name="query"
+              placeholder="{{payload.query}}"
+            />
+            {% else %}
             <input
               type="search"
               name="query"
               placeholder="search for a movie..."
             />
+            {% endif %}
             <input type="submit" value="Scrape" />
           </div>
 

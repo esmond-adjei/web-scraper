@@ -29,11 +29,6 @@ def getAddress(movie_type, query):
         2. Gets appropriate address based on command and creates an search query address with the movie title
         3. Returns MOVIE ADDRESS and MOVIE SEARCH KEYWORD.
     '''
-    # command = input(">> Search movie (start with 's' for series or 'm' for movies): ")
-    # while command.strip() == "":
-    #     command = input(">> Search movie (start with 's' for series or 'm' for movies): ")
-    # command.lower()
-
     # making address for LIGHTDLMOVIES
     addressDictionary = {
         "series": "https://lightdlss.blogspot.com/search?q=",
@@ -44,7 +39,6 @@ def getAddress(movie_type, query):
 
     websiteType = movie_type
     movie_query = query
-    # movie_keyword = input(">> Specific keyword to help find movie (default: movie name): ")
     movie_keyword = ''
     if movie_keyword == '':
         movie_keyword = movie_query

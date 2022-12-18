@@ -9,39 +9,34 @@
     <h2 style="text-align: center"><b>{{movie}}</b></h2>
     <ol>
       {% for link in links %}
-      <!-- <li><a href="{{link}}" style="color: #dd5d00"> {{movie}} </a></li> -->
-      <!-- The text field -->
 
       <input type="text" value="{{link}}" id="myInput" class="hidden" />
-      <a
-        ><li
+      <a>
+        <li
           onclick="myFunction()"
           class="pointer"
           id="changeColor"
           style="color: #dd2200"
-        >
-          {{movie}}
-        </li></a
-      >
-      <!-- <button onclick="myFunction()">Copy text</button> -->
+        >{{movie}}</li>
+        </a>
       {% endfor %}
     </ol>
   </div>
   {% empty %}
   <div class="link-card slide-top">
     <p style="text-align: center">
-      Sorry... No results found for <b>{{payload.query}} from our online source</b>
+      Sorry... No results found for <b>"{{payload.query}}"</b> from our online source
     </p>
   </div>
   {% endfor %}
   <!-- end of content -->
 </div>
 
-{% if not request.user.is_authenticated and payload.scraped %} <!-- user not auth -->
+{% if not request.user.is_authenticated %} <!-- user not auth -->
 <a href="{% url 'login' %}">
   <div class="see-more">Login to save</div>
 </a>
-{% elif payload.scraped_data|length > 0 and payload.scraped %} <!-- user auth and payload-->
+{% elif payload.scraped_data|length > 0 and not payload.is_local %} <!-- user auth but payload is non-local -->
 <a href="{% url 'save' %}">
   <div class="see-more">Save</div>
 </a>
