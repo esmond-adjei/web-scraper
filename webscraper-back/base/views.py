@@ -226,7 +226,6 @@ def get_request(request, query):
         movie_type = request.GET.get('movie-type')
         PAYLOAD['movie_type'] = movie_type
 
-        # option to download image
         try:
             if query.strip().replace("+", "") == '':    # if query is empty, return nothing
                 scraped_data = {}
@@ -238,6 +237,7 @@ def get_request(request, query):
         except:
             scraped_data = {}
 
+        # option to download image
         download_img = request.GET.get('download-img')
         if download_img == 'yes':
             try:
