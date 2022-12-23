@@ -4,20 +4,41 @@
 {% block content %}
 
 <div class="main">
-    {% for usermovie in request.user.usermovie_set.all %}
+    {% for movie in payload.movies %}
   
-    <a href="{% url 'select-movie' usermovie.user_movie.moviename %}" class="card_link">
+    <a href="{% url 'select-movie' movie.moviename %}" class="card_link">
+      {% if movie.imagelink|length < 5 %}
       <div
         class="card"
         style="background-image: url('{% static 'images/mulan.jpg' %}')"
       ></div>
+      {% else %}
+      <div
+        class="card"
+        style="background-image: url('{{movie.imagelink}}')"
+      ></div>
+      {% endif %}
       <div class="card_link_text">
-        <small>{{usermovie.user_movie.moviename}}</small>
+        <small>{{movie.moviename}}</small>
       </div>
     </a>
     {% empty %}
     <p>No Movies Here!</p>
     {% endfor %}
+</div>
+
+<div class="page-flip" style="display: flex;">
+    
+    {% if payload.prev_page > 0 %}
+    <div class="see-more" style="background-color: grey;">
+        <a href="{% url 'browse' payload.prev_page %}">Previous Page</a>
+    </div>
+    {% endif %}
+    {% if payload.movies %}
+    <div class="see-more">
+        <a href="{% url 'browse' payload.next_page %}">Next Page</a>
+    </div>
+    {% endif %}
 </div>
 
 <!-- REPEATS FOR ALL OTHER PAGES -->

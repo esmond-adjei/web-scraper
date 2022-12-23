@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from django.core.paginator import Paginator
 
 from .scrapealgo import *
 from .scrapeTools import IMDB
@@ -48,14 +49,16 @@ def index(request):
     #     movie_data = Movie.objects.all()
     # except:
     #     print("User not logged in, yet")  # This is not true as of 2022/12/11
-    mov_obj = [mo.moviename for mo in Movie.objects.filter().order_by('-id')[:3]]
-    PAYLOAD = {'page_title': 'Scrape a movie', 'latest_movies': mov_obj}
+    mov_obj = [mo for mo in Movie.objects.filter().order_by('?')[:3]]
+    print(mov_obj[0].imagelink)
+    PAYLOAD = {'page_title': 'Scrape a movie',
+               'latest_movies': mov_obj}
     return render(request, 'index.html', {'payload': PAYLOAD})
 
 
 def progress(request):
 
-    query = request.GET['query']
+    query = request.GET.get('query')
 
     PAYLOAD = get_request(request=request, query=query)
 
@@ -119,19 +122,41 @@ def selectMovie(request, moviename):
 
 
 def myScrapes(request):
-    # payload has been coded into the template
-    PAYLOAD = {}
-    PAYLOAD['page_title'] = str(request.user.username) + "'s list"
 
-    return render(request, 'personal_scrapes.html', {'payload': PAYLOAD})
+    user_mov_obj = [
+        obj.user_movie for obj in request.user.usermovie_set.all().order_by('-id')]
+    page_obj = Paginator(user_mov_obj, 6)
+    current_page = request.GET.get('page')
+    current_page_obj = page_obj.get_page(current_page)
 
+    total_pages = current_page_obj.paginator.num_pages
+    PAYLOAD = {'movies': current_page_obj,
+               'page_title': f"{str(request.user.username)}'s list | {current_page} of {total_pages}"
+               }
+
+    return render(request, 'browse.html', {'payload': PAYLOAD})
+
+
+def browse(request):
+    # using paginator to paginate
+    page_obj = Paginator(Movie.objects.filter().order_by('-id'), 9)
+    current_page = request.GET.get('page')
+    current_page_obj = page_obj.get_page(current_page)
+
+    total_pages = current_page_obj.paginator.num_pages
+    PAYLOAD = {'movies': current_page_obj,
+               'page_title': f"Page {current_page} of {total_pages}",
+               }
+    return render(request, 'browse.html', {'payload': PAYLOAD})
 
 # special function to fetch data from database
+
+
 def fetch_from_db(movie_object):
     '''
         parameter: a movie object from django.models
         manipulation: fetches the movie object details and parse them into a dictionary format
-        return: returns a dictionary object with the elements of the movie object organized in the format: 
+        return: returns a dictionary object with the elements of the movie object organized in the format:
                 {'scraped_data':<something>, 'imglnk':<something>, 'is_local':<something>}
     '''
 
@@ -162,19 +187,25 @@ def save_global_db(PAYLOAD):
 def get_request(request, query):
     # if query exists fetch from database else scrape online
     # - need to have a special function that searches query from database:: movie queries or movie names
+
     PAYLOAD = {'scraped_data': '', 'imglnk': '', 'movie_type': '',
                'query': query, 'page_title': query, 'is_local': False}
+    invalid_query = query.strip().replace("+", "") == ''
+    # rf:: if for forced query
+    if invalid_query:
+        return PAYLOAD
+
     movie_obj_db = Movie.objects.filter(
         query__icontains=query) or Movie.objects.filter(moviename__icontains=query)
-
-    if 'rf::' not in query and len(movie_obj_db):   # rf:: if for forced query
+    query_found_in_db = len(movie_obj_db) != 0
+    if query_found_in_db:
         # core properties of payload
         first_obj = fetch_from_db(movie_obj_db[0])
-        PAYLOAD['imglnk'] = first_obj['imglnk']
+        PAYLOAD['imglnk'] = "https://miro.medium.com/max/2160/0*WFJUV6w1MGI32y1P" if len(
+            first_obj['imglnk']) < 5 else first_obj['imglnk']
         PAYLOAD['scraped_data'] = first_obj['scraped_data']
         PAYLOAD['movie_type'] = first_obj['movie_type']
 
-        # check if global movie is also local
         if request.user.is_authenticated:
             isLocal = {m.moviename for m in movie_obj_db}.difference(
                 {m.user_movie.moviename for m in request.user.usermovie_set.all()})
@@ -185,13 +216,14 @@ def get_request(request, query):
 
         # fetch from database in desired format and create a merged desired format
         for index in range(1, len(movie_obj_db)):
+            # check if global movie is also local
             PAYLOAD['scraped_data'].update(fetch_from_db(
                 movie_obj_db[index])['scraped_data'])
 
     else:
-        if 'rf::' in query:     # remove fored query
-            query = query[4:]
-        movie_type = request.GET['movie-type']
+        query = query[4:] if 'rf::' in query else query
+
+        movie_type = request.GET.get('movie-type')
         PAYLOAD['movie_type'] = movie_type
 
         # option to download image
@@ -206,20 +238,16 @@ def get_request(request, query):
         except:
             scraped_data = {}
 
-        try:
-            download_img = request.GET['download-img']
-        except:
-            download_img = ''
-
-        print('='*50)
+        download_img = request.GET.get('download-img')
         if download_img == 'yes':
             try:
+                print('='*50)
                 imglnk = IMDB(query)
             except:
                 print("COULD NOT OBTAIN IMAGE FILE")
-                imglnk = '#'
+                imglnk = "https://miro.medium.com/max/2160/0*WFJUV6w1MGI32y1P"
         else:
-            imglnk = '#'
+            imglnk = "https://miro.medium.com/max/2160/0*WFJUV6w1MGI32y1P"
 
         # clean scraped data. remove all empty links
         scraped_data = {k: v for k, v in scraped_data.items() if v}
@@ -229,4 +257,5 @@ def get_request(request, query):
 
         # save to global database
         save_global_db(PAYLOAD=PAYLOAD)
+
     return PAYLOAD

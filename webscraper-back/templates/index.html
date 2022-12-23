@@ -11,18 +11,29 @@
   </div>
 
   {% for movie in payload.latest_movies %}
-  <a href="{% url 'select-movie' movie %}" class="card_link">
+  <a href="{% url 'select-movie' movie.moviename %}" class="card_link">
+    {% if movie.imagelink|length < 5 %}
     <div
       class="card"
       style="background-image: url('{% static 'images/mulan.jpg' %}')"
     ></div>
+    {% else %}
+    <div
+      class="card"
+      style="background-image: url('{{movie.imagelink}}')"
+    ></div>
+    {% endif %}
     <div class="card_link_text">
-      <small>{{movie}}</small>
+      <small>{{movie.moviename}}</small>
     </div>
   </a>
   {% empty %}
   <p><b>Scrape</b> movies to see what is latest</p>
   {% endfor %}
+
+<div class="see-more">
+    <a href="{% url 'browse'%}">See More</a>
+</div>
 
   <!-- REPEATS FOR ALL OTHER PAGES -->
 </div>

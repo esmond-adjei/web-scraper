@@ -11,4 +11,5 @@ urlpatterns = [
     path('save', views.save, name='save'),
     path('select-movie/<str:moviename>', views.selectMovie, name='select-movie'),
     path('my-scrapes', views.myScrapes, name='my-scrapes'),
+    path('browse', views.browse, name='browse'),
 ]

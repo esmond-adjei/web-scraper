@@ -8,24 +8,21 @@
   <div class="link-card slide-top">
     <h2 style="text-align: center"><b>{{movie}}</b></h2>
     <ol>
-      {% for link in links %}
-
-      <input type="text" value="{{link}}" id="myInput" class="hidden" />
-      <a>
+    {% for link in links %}
+      <input type="text" value="{{link}}" id="myInput" class="genie" />
         <li
           onclick="myFunction()"
           class="pointer"
           id="changeColor"
-          style="color: #dd2200"
-        >{{movie}}</li>
-        </a>
-      {% endfor %}
-    </ol>
+          style="color: #dd2200; margin: 0px 30px;"
+        ><a>{{movie}}</a></li>
+        {% endfor %}
+      </ol>
   </div>
   {% empty %}
   <div class="link-card slide-top">
     <p style="text-align: center">
-      Sorry... No results found for <b>"{{payload.query}}"</b> from our online source
+      Sorry... No results found for <b>"{{payload.movie_type}}: {{payload.query}}"</b> from our online source
     </p>
   </div>
   {% endfor %}
