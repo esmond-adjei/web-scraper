@@ -2,11 +2,13 @@ const checkbox = document.getElementById("checkbox");
 
 checkbox.addEventListener("change", () => {
   darkTargets = document.querySelectorAll("#turn-dark");
-  // console.log(darkTargets);
+  localStorage.setItem('dark',this.checked);
+  console.log(this.checked);
   for (let i = 0; i < darkTargets.length; i++) {
     darkTargets[i].classList.toggle("dark");
   }
 });
+
 
 // --------------------------------------------------
 function myFunction() {
