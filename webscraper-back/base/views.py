@@ -45,10 +45,7 @@ def loginPage(request):
 
 
 def index(request):
-    # try:
-    #     movie_data = Movie.objects.all()
-    # except:
-    #     print("User not logged in, yet")  # This is not true as of 2022/12/11
+
     mov_obj = [mo for mo in Movie.objects.filter().order_by('?')[:3]]
     PAYLOAD = {'page_title': 'Scrape a movie',
                'latest_movies': mov_obj}
@@ -213,7 +210,7 @@ def get_request(request, query):
     PAYLOAD = {'scraped_data': '', 'imglnk': '', 'movie_type': '',
                'query': query, 'page_title': query, 'is_local': False}
     invalid_query = query.strip().replace("+", "") == ''
-    # rf:: if for forced query
+    # u: if for forced query
     if invalid_query:
         return PAYLOAD
 
@@ -243,7 +240,7 @@ def get_request(request, query):
                 movie_obj_db[index])['scraped_data'])
 
     else:
-        query = query[4:] if 'rf::' in query else query
+        query = query[4:] if 'u:' in query else query
 
         movie_type = request.GET.get('movie-type')
         PAYLOAD['movie_type'] = movie_type
