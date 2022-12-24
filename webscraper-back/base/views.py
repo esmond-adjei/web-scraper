@@ -50,7 +50,6 @@ def index(request):
     # except:
     #     print("User not logged in, yet")  # This is not true as of 2022/12/11
     mov_obj = [mo for mo in Movie.objects.filter().order_by('?')[:3]]
-    print(mov_obj[0].imagelink)
     PAYLOAD = {'page_title': 'Scrape a movie',
                'latest_movies': mov_obj}
     return render(request, 'index.html', {'payload': PAYLOAD})
@@ -123,15 +122,30 @@ def selectMovie(request, moviename):
 
 def myScrapes(request):
 
-    user_mov_obj = [
-        obj.user_movie for obj in request.user.usermovie_set.all().order_by('-id')]
+    category = request.GET.get('filter_by')
+    if category:
+        # filter db by category
+        mov_obj = set(Movie.objects.filter(
+            movie_type=category).order_by('-id'))
+        user_movs = set(
+            obj.user_movie for obj in request.user.usermovie_set.all())
+        # return intersection between users movies and filtered query set
+
+        user_mov_obj = list(mov_obj.intersection(user_movs))
+        print(user_mov_obj)
+    else:
+        user_mov_obj = [
+            obj.user_movie for obj in request.user.usermovie_set.all().order_by('-id')]
+
+    total_movies_in_category = len(user_mov_obj)
     page_obj = Paginator(user_mov_obj, 6)
-    current_page = request.GET.get('page')
+    current_page = request.GET.get('page') if request.GET.get('page') else 1
     current_page_obj = page_obj.get_page(current_page)
 
     total_pages = current_page_obj.paginator.num_pages
     PAYLOAD = {'movies': current_page_obj,
-               'page_title': f"{str(request.user.username)}'s list | {current_page} of {total_pages}"
+               'results_length': total_movies_in_category,
+               'page_title': f"{str(request.user.username)}'s list | {current_page} of {total_pages}",
                }
 
     return render(request, 'browse.html', {'payload': PAYLOAD})
@@ -139,13 +153,21 @@ def myScrapes(request):
 
 def browse(request):
     # using paginator to paginate
-    page_obj = Paginator(Movie.objects.filter().order_by('-id'), 9)
-    current_page = request.GET.get('page')
+    category = request.GET.get('filter_by')
+    if category:
+        mov_obj = Movie.objects.filter(movie_type=category).order_by('-id')
+    else:
+        mov_obj = Movie.objects.filter().order_by('-id')
+
+    total_movies_in_category = len(mov_obj)
+    page_obj = Paginator(mov_obj, 9)
+    current_page = request.GET.get('page') if request.GET.get('page') else 1
     current_page_obj = page_obj.get_page(current_page)
 
     total_pages = current_page_obj.paginator.num_pages
     PAYLOAD = {'movies': current_page_obj,
                'page_title': f"Page {current_page} of {total_pages}",
+               'results_length': total_movies_in_category,
                }
     return render(request, 'browse.html', {'payload': PAYLOAD})
 

@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{% static 'style.css' %}" />
     <link rel="stylesheet" href="{% static 'output.css' %}" />
     <title>{{payload.page_title}}</title>
+    <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.jpg' %}"
   </head>
   <body id="turn-dark">
     <main class="content">
@@ -112,9 +113,7 @@
         <!-- DC/navigation -->
         <div class="navigation" id="turn-dark">
           <p>
-            <a href="{% url 'index' %}" style="opacity: 70%; color: brown"
-              >home</a
-            >/download page
-          </p>
+            <a href="{% url 'index' %}">Go home</a>|
+            <a href="{% url 'browse'%}">Browse some movies</a>
         </div>
         {% block content %} {% endblock %}

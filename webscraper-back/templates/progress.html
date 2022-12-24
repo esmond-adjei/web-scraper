@@ -9,9 +9,10 @@
     <h2 style="text-align: center"><b>{{movie}}</b></h2>
     <ol>
     {% for link in links %}
-      <input type="text" value="{{link}}" id="myInput" class="genie" />
-        <li
-          onclick="myFunction()"
+      <!-- <input type="text" value="link" id="myInput" class="genie" /> -->
+        
+      <li
+          onclick="copy('{{link}}')"
           class="pointer"
           id="changeColor"
           style="color: #dd2200; margin: 0px 30px;"
@@ -37,12 +38,12 @@
 <a href="{% url 'save' %}">
   <div class="see-more">Save</div>
 </a>
-{% endif %}
 
-      <!-- DC/status -->
-      <div class="status" id="turn-dark">
-        <p>{{payload.scraped_data.keys|length}} Results were found</p>
-      </div>
+<!-- DC/status -->
+<div class="status" id="turn-dark">
+  <p>{{payload.scraped_data.keys|length}} Results were found</p>
+</div>
+{% endif %}
       <div class="footer">
       <!-- FOOTER -->
         <small>copyright 2022</small>
