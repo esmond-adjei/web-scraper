@@ -208,7 +208,7 @@ def get_request(request, query):
     # - need to have a special function that searches query from database:: movie queries or movie names
 
     PAYLOAD = {'scraped_data': '', 'imglnk': '', 'movie_type': '',
-               'query': query, 'page_title': query, 'is_local': False}
+               'query': query, 'page_title': '', 'is_local': False}
     invalid_query = query.strip().replace("+", "") == ''
     # u: if for forced query
     if invalid_query:
@@ -218,6 +218,7 @@ def get_request(request, query):
         query__icontains=query) or Movie.objects.filter(moviename__icontains=query)
     query_found_in_db = len(movie_obj_db) != 0
     if query_found_in_db:
+        title = 'Found in database'
         # core properties of payload
         first_obj = fetch_from_db(movie_obj_db[0])
         PAYLOAD['imglnk'] = "https://miro.medium.com/max/2160/0*WFJUV6w1MGI32y1P" if len(
@@ -240,8 +241,7 @@ def get_request(request, query):
                 movie_obj_db[index])['scraped_data'])
 
     else:
-        query = query[4:] if 'u:' in query else query
-
+        query = query[2:] if 'u:' in query else query
         movie_type = request.GET.get('movie-type')
         PAYLOAD['movie_type'] = movie_type
 
@@ -268,11 +268,22 @@ def get_request(request, query):
         else:
             imglnk = "https://miro.medium.com/max/2160/0*WFJUV6w1MGI32y1P"
 
+        # save not found queries
+        if not scraped_data:
+            title = "Not found"
+            print("NOT FOUND")
+            with open('notfoundlist', 'a+') as nfl:
+                nfl.write(f"\n* - Query: {query} \t\t- Type: {movie_type}")
+        else:
+            title = "Scraped"
         # clean scraped data. remove all empty links
         scraped_data = {k: v for k, v in scraped_data.items() if v}
-
-        PAYLOAD.update({'scraped_data': scraped_data, 'query': query,
-                        'imglnk': imglnk, 'movie_type': movie_type})
+        PAYLOAD.update({'scraped_data': scraped_data,
+                        'query': query,
+                        'imglnk': imglnk,
+                        'movie_type': movie_type,
+                        'page_title': f"{query} | {title}"
+                        })
 
         # save to global database
         save_global_db(PAYLOAD=PAYLOAD)
