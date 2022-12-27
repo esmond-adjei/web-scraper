@@ -4,12 +4,12 @@ from django.contrib.auth import authenticate, login, logout
 from django.core.paginator import Paginator
 
 from .scrapealgo import *
-from .scrapeTools import IMDB
 
 from .models import Movie, UserMovie
 from .form import RegisterForm
 
 import json
+import time
 # Create your views here.
 
 
@@ -84,19 +84,30 @@ def save(request):
                 username=request.user
             )
             is_created = True
-            print(">> SAVED LOCALLY")
-    else:       # then movie already exists in local as well.
+    else:
         is_created = False
 
     PAYLOAD = {'is_created': is_created, 'page_title': "Saved"}
 
-    return render(request, 'save.html', {'payload': PAYLOAD})
+    time.sleep(1)
+    return redirect('browse')
+
+
+def delete(request, moviename):
+
+    toDelete = [m for m in request.user.usermovie_set.all()
+                if moviename == m.user_movie.moviename]
+    toDelete[0].delete()
+
+    # wait for a while
+    time.sleep(1)
+    return redirect('my-scrapes')
 
 
 def selectMovie(request, moviename):
     PAYLOAD = {}
     if moviename == 'progress':
-        query = request.GET['query']
+        query = request.GET.get('query')
         PAYLOAD = get_request(request=request, query=query)
     else:
         movie_object = Movie.objects.get(moviename=moviename)
@@ -120,19 +131,18 @@ def selectMovie(request, moviename):
 def myScrapes(request):
 
     category = request.GET.get('filter_by')
-    if category:
-        # filter db by category
+    category = 'All' if category == 'None' else category
+    if category is None or category == 'All':
+        user_mov_obj = [
+            obj.user_movie for obj in request.user.usermovie_set.all().order_by('-id')]
+    else:
         mov_obj = set(Movie.objects.filter(
             movie_type=category).order_by('-id'))
         user_movs = set(
             obj.user_movie for obj in request.user.usermovie_set.all())
-        # return intersection between users movies and filtered query set
 
         user_mov_obj = list(mov_obj.intersection(user_movs))
-        print(user_mov_obj)
-    else:
-        user_mov_obj = [
-            obj.user_movie for obj in request.user.usermovie_set.all().order_by('-id')]
+        user_mov_obj.reverse()
 
     total_movies_in_category = len(user_mov_obj)
     page_obj = Paginator(user_mov_obj, 6)
@@ -143,6 +153,8 @@ def myScrapes(request):
     PAYLOAD = {'movies': current_page_obj,
                'results_length': total_movies_in_category,
                'page_title': f"{str(request.user.username)}'s list | {current_page} of {total_pages}",
+               'editable': True,
+               'current_filter': category,
                }
 
     return render(request, 'browse.html', {'payload': PAYLOAD})
@@ -151,10 +163,17 @@ def myScrapes(request):
 def browse(request):
     # using paginator to paginate
     category = request.GET.get('filter_by')
-    if category:
-        mov_obj = Movie.objects.filter(movie_type=category).order_by('-id')
+    category = 'All' if category == 'None' else category
+    if category is None or category == 'All':
+        mov_obj = Movie.objects.all().order_by('-id')
     else:
-        mov_obj = Movie.objects.filter().order_by('-id')
+        mov_obj = Movie.objects.filter(movie_type=category).order_by('-id')
+
+    if request.user.is_authenticated:  # display movies not saved by user
+        user_movie_set = [
+            m.user_movie for m in request.user.usermovie_set.all()]
+        mov_obj = list(set(mov_obj).difference(set(user_movie_set)))
+        mov_obj.reverse()
 
     total_movies_in_category = len(mov_obj)
     page_obj = Paginator(mov_obj, 9)
@@ -165,6 +184,7 @@ def browse(request):
     PAYLOAD = {'movies': current_page_obj,
                'page_title': f"Page {current_page} of {total_pages}",
                'results_length': total_movies_in_category,
+               'current_filter': category,
                }
     return render(request, 'browse.html', {'payload': PAYLOAD})
 
@@ -227,8 +247,8 @@ def get_request(request, query):
         PAYLOAD['movie_type'] = first_obj['movie_type']
 
         if request.user.is_authenticated:
-            isLocal = {m.moviename for m in movie_obj_db}.difference(
-                {m.user_movie.moviename for m in request.user.usermovie_set.all()})
+            isLocal = {movie_obj_db}.difference(
+                {m.user_movie for m in request.user.usermovie_set.all()})
             if isLocal:
                 PAYLOAD['is_local'] = False
             else:
@@ -257,23 +277,24 @@ def get_request(request, query):
             scraped_data = {}
 
         # option to download image
-        download_img = request.GET.get('download-img')
-        if download_img == 'yes':
-            try:
-                print('='*50)
-                imglnk = IMDB(query)
-            except:
-                print("COULD NOT OBTAIN IMAGE FILE")
-                imglnk = "https://miro.medium.com/max/2160/0*WFJUV6w1MGI32y1P"
-        else:
-            imglnk = "https://miro.medium.com/max/2160/0*WFJUV6w1MGI32y1P"
+        # download_img = request.GET.get('download-img')
+        # if download_img == 'yes':
+        #     try:
+        #         print('='*50)
+        #         imglnk = IMDB(query)
+        #     except:
+        #         print("COULD NOT OBTAIN IMAGE FILE")
+        #         imglnk = "https://miro.medium.com/max/2160/0*WFJUV6w1MGI32y1P"
+        # else:
+        #     imglnk = "https://miro.medium.com/max/2160/0*WFJUV6w1MGI32y1P"
 
         # save not found queries
+
+        imglnk = "#"
         if not scraped_data:
             title = "Not found"
-            print("NOT FOUND")
             with open('notfoundlist', 'a+') as nfl:
-                nfl.write(f"\n* - Query: {query} \t\t- Type: {movie_type}")
+                nfl.write(f"\n* - Query: {query:20} - Type: {movie_type:20}")
         else:
             title = "Scraped"
         # clean scraped data. remove all empty links

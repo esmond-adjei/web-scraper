@@ -6,44 +6,99 @@
 <div class="get-link-page" style="background-image: url('{{payload.imglnk}}')">
   {% for movie, links in payload.scraped_data.items %}
   <div class="link-card slide-top">
-    <h2 style="text-align: center"><b>{{movie}}</b></h2>
+
+
+    {% if request.user.is_authenticated and not payload.is_Local%}
+    <div style="
+        display: flex;
+        justify-content: space-evenly;
+        background-color: #703003;
+        border-radius: 10px;
+        padding: 5px;"
+      >
+      <a class="link-button" href="#" style="background-color: #00dd54;">Update</a>
+      
+      {% if payload.is_local %}
+        <a class="see-more" href="#" style="margin: 0; background-color: #cf2028" onclick="confirmDel('{{movie}}')">Delete</a>
+      {% else %}  
+        <a class="see-more" href="{% url 'save' %}" style="margin: 0;" onclick="flushMessage()">Save</a>
+      {% endif %}
+      
+      </div>
+    {% endif %}
+    
+    <h2 style="text-align: center;">
+      <b>{{movie}}</b>
+    </h2>
+
     <ol>
     {% for link in links %}
       <!-- <input type="text" value="link" id="myInput" class="genie" /> -->
         
       <li
           onclick="copy('{{link}}')"
-          class="pointer"
           id="changeColor"
           style="color: #dd2200; margin: 0px 30px;"
-        ><a>{{movie}}</a></li>
+        ><a style="cursor:copy">{{movie}}</a></li>
         {% endfor %}
       </ol>
   </div>
   {% empty %}
-  <div class="link-card slide-top">
+  <div class="link-card">
     <p style="text-align: center">
       Sorry... No results found for <b>"{{payload.movie_type}}: {{payload.query}}"</b> from our online source
     </p>
   </div>
   {% endfor %}
   <!-- end of content -->
+
+  <div class="link-card" id="confirm-dialog"  
+      style="
+      position: sticky;
+      display: none;
+      bottom: 80px;
+      padding: 10px;
+      min-height: 205px;
+      background-color:rgb(255 170 108);
+      box-shadow: 0px 0px 250px 158px #5a2600;
+      "  
+  >
+    <p class = "flush" style="text-align: center" id="confirm-message"></p>
+
+    <div style="
+        display: flex;
+        justify-content: space-evenly;
+        background-color: #dd5d00;
+        border-radius: 10px;
+        padding: 5px;"
+        class="flush"
+      >
+      <a class="link-button" style="background-color: #00dd54;" onclick="cancelDel()">Cancel</a>
+      <a class="see-more" style="margin: 0; background-color: #cf2028" 
+          id="confirm-button"
+          onclick="flushMessage()"
+          >Confirm</a>
+      </div>
+
+  </div>
+
+
 </div>
 
 {% if not request.user.is_authenticated %} <!-- user not auth -->
 <a href="{% url 'login' %}">
   <div class="see-more">Login to save</div>
 </a>
-{% elif payload.scraped_data|length > 0 and not payload.is_local %} <!-- user auth but payload is non-local -->
+{% elif payload.scraped_data|length > 1 and not payload.is_local %} <!-- user auth but payload is non-local -->
 <a href="{% url 'save' %}">
-  <div class="see-more">Save</div>
+  <div class="see-more">Save All</div>
 </a>
+{% endif %}
 
 <!-- DC/status -->
 <div class="status" id="turn-dark">
-  <p>{{payload.scraped_data.keys|length}} Results were found</p>
+  <p>{{payload.scraped_data.keys|length}} Result(s)</p>
 </div>
-{% endif %}
       <div class="footer">
       <!-- FOOTER -->
         <small>copyright 2022</small>

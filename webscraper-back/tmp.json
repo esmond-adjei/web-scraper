@@ -1,8 +1,12 @@
 {
-  "scraped_data": {},
+  "scraped_data": {
+    "365 Days 2020": [
+      "https://dl2.sermusic.in/dl/movie/2020/365.Days.2020/365.Days.2020.1080p.WEB-DL.SerFil.HardSub.mp4",
+      " https://dl2.sermusic.in/dl/movie/2020/365.Days.2020/365.Days.2020.720p.WEB-DL.SerFil.HardSub.mp4"
+    ]
+  },
   "imglnk": "https://miro.medium.com/max/2160/0*WFJUV6w1MGI32y1P",
   "movie_type": "movie",
-  "query": "black panther",
-  "page_title": "black panther",
-  "is_local": false
+  "page_title": "365 Days 2020",
+  "is_local": true
 }
