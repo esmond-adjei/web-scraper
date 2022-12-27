@@ -17,36 +17,42 @@ def recursiveScrape(list_of_links, keyword):
 
     scraped_data = {}
     movieTitle = ''
-    count, count2, season = 1,1,1
-    
-    if not list_of_links:   print("NoneType NoneType NoneType")
+    count, count2, season = 1, 1, 1
+
+    if not list_of_links:
+        print("NoneType NoneType NoneType")
     else:
         for link_tag in list_of_links:
-            if compareLists(keyword.split(), link_tag.text.lower().split()):     # compares keyword and text on the site
+            # compares keyword and text on the site
+            if compareLists(keyword.split(), link_tag.text.lower().split()):
                 link = link_tag.get("href")
                 if link[-3:] in ("mkv", "mp4"):     # check if movie link
                     movieLink = link.strip()
-                    
-                    if f's0{season}' in link_tag.get("href").lower():           # executed for seaonal movies. It counts the seasons
+
+                    # executed for seaonal movies. It counts the seasons
+                    link_text = link_tag.get("href").lower()
+                    if f"s0{season}" in link_text:
                         movieTitle = series_title
-                        movieTitle = "{} SEASON {}".format(movieTitle,season)
+                        movieTitle = "{} SEASON {}".format(movieTitle, season)
                         scraped_data[movieTitle] = []
                         season += 1
                         count = 1
-                    
+
                     scraped_data[movieTitle].append(movieLink)
                     count += 1
-                elif link[-4:] in ("html",".htm"):  # check if html link        # usually implemented once:: gateway to page with download links
+                # check if html link        # usually implemented once:: gateway to page with download links
+                elif link[-4:] in ("html", ".htm"):
                     htmlLink = link
-                    movieTitle = link_tag.text.strip().replace('.',' ')
+                    movieTitle = link_tag.text.strip().replace('.', ' ')
                     series_title = movieTitle
-                    print("MOVIE TITLE: ",movieTitle)
+                    print("MOVIE TITLE: ", movieTitle)
                     scraped_data[movieTitle] = []
                     count2 += 1
                     count = 1
 
-                    foundLinks = find_tag('a', scrape(htmlLink))    # rescrape to get to the LINKS
+                    # rescrape to get to the LINKS
+                    foundLinks = find_tag('a', scrape(htmlLink))
                     if foundLinks:                                  # to ensure that we do not recursiveScrape an empty list
                         continue
-                    recursiveScrape(foundLinks,keyword)
-    return scraped_data        
+                    recursiveScrape(foundLinks, keyword)
+    return scraped_data

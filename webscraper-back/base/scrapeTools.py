@@ -33,6 +33,7 @@ def getAddress(movie_type, query):
     addressDictionary = {
         "series": "https://lightdlss.blogspot.com/search?q=",
         "movie": "https://lightdlmovies.blogspot.com/search?q=",
+        "anime": "https://lightdlsite.blogspot.com/search?q=",
         "h": "https://hdmoviesringo.in/?s=",
         "H": "https://movieshippo.in/?s=",
     }
