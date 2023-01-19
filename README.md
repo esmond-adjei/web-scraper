@@ -10,8 +10,22 @@
 
 ---
 
-#### Screenshot 28/11/2022
+#### SNAPSHOTS
 
 ![movie-scraper-screenshot](./src/docs/movie-scraper-screenshot-28-11-2022.png)
 
 ![movie-scraper-snapshot-deadline](./src/docs/movie-scraper-snapshot-deadline.png)
+
+---
+
+- [ ] copy the repo via `git clone <repo url: https | ssh>`
+
+- [ ] ▶️ `cd webscraper-back`
+
+- [ ] ▶️ `python manage.py runserver`
+
+- [ ] 🕸️ open to `localhost:8000` in chrome browswer
+
+- [ ] 🔎 type `move name` (add clues to easily identify the movie) in search box
+
+- [ ] 🔎 search movie `u: <movie name>` to force scrape a movie not present in the database
