@@ -14,8 +14,8 @@ class Movie(models.Model):
     datecreated = models.DateTimeField(auto_now_add=True, blank=True)
 
     DisplayFields = ['moviename', 'movie_type', 'datecreated', 'imagelink']
-    SearchFields = ['query', 'moviename']
-    FilterFields = ['query', 'movie_type']
+    SearchFields = ['moviename', 'query']
+    FilterFields = ['movie_type', 'query']
 
     def __str__(self):
         return self.moviename
