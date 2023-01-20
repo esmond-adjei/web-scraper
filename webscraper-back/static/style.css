@@ -82,7 +82,7 @@ a:hover {
 .movie-selection {
     position: relative;
 }
-.see-more {
+div.see-more {
     position: absolute;
     left: 40%;
     right: 40%;
