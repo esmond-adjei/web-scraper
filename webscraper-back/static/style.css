@@ -89,3 +89,21 @@ div.see-more {
     bottom: 25%;
     box-shadow: -1px 6px 10px 0px #0000005c;
 }
+
+/* Style the scrollbar */
+::-webkit-scrollbar {
+    width: 7px;
+    background-color: inherit;
+}
+
+/* Style the thumb (the part of the scrollbar that you can drag) */
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: var(--light-text);
+}
+
+/* Style the thumb when hovered over */
+::-webkit-scrollbar-thumb:hover {
+    transition: 300ms;
+    background-color: var(--grey);
+}
