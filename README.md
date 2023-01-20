@@ -29,3 +29,5 @@
 - [ ] 🔎 type `move name` (add clues to easily identify the movie) in search box
 
 - [ ] 🔎 search movie `u: <movie name>` to force scrape a movie not present in the database
+
+- [ ] 🙎profile name: `guest` password: `whoistheadmin`
