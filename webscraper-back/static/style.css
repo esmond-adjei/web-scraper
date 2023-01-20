@@ -77,3 +77,15 @@ a:hover {
   transition: 0.5s;
   background-position-y: center;
 }
+
+/* ------------------ */
+.movie-selection {
+    position: relative;
+}
+div.see-more {
+    position: absolute;
+    left: 40%;
+    right: 40%;
+    bottom: 25%;
+    box-shadow: -1px 6px 10px 0px #0000005c;
+}

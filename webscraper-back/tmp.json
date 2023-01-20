@@ -1,11 +1,22 @@
 {
   "scraped_data": {
+
     "Schindlers List 1993": [
       "http://www.bfdlcloud.com/Movies/Schindlers-List-1993-720p-BaranFilm.mkv"
+
+    "Twilight Collection": [
+      "http://www.bfdlcloud.com/Movies/Twilight-2008-720p-BaranFilm.mkv",
+      " http://www.bfdlcloud.com/Movies/Twilight-Saga-2-New-Moon-2009-720p-BaranFilm.mkv",
+      " http://www.bfdlcloud.com/Movies/The-Twilight-Saga-3-Eclipse-2010-720p-BaranFilm.mkv",
+      " http://www.bfdlcloud.com/Movies/The-Twilight-Saga-4-Breaking-Dawn-Part-1-2011-720p-BaranFilm.mkv",
+      " http://www.bfdlcloud.com/Movies/The-Twilight-Saga-Breaking-Dawn-Part-2-2012-1080p-BaranFilm.mkv",
+      " http://www.bfdlcloud.com/Movies/The-Twilight-Saga-Breakin-Dawn-Part-2-2012-720p-BaranFilm.mkv"
+
     ]
   },
   "imglnk": "#",
   "movie_type": "movie",
   "page_title": "Schindlers List 1993",
+  "page_title": "Twilight Collection",
   "is_local": false
 }
