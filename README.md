@@ -22,7 +22,7 @@
 
 - [ ] ▶️ `cd webscraper-back`
 
-- [ ] ▶️ `pip install -r requirements.txt
+- [ ] ▶️ `pip install requirements.txt`
 
 - [ ] ▶️ `python manage.py runserver`
 
