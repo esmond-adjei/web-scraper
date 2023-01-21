@@ -22,6 +22,8 @@
 
 - [ ] ▶️ `cd webscraper-back`
 
+- [ ] ▶️ `pip install -r requirements.txt
+
 - [ ] ▶️ `python manage.py runserver`
 
 - [ ] 🕸️ open to `localhost:8000` in chrome browswer
