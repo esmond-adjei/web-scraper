@@ -1,0 +1,173 @@
+{% extends 'templates/main.html' %} {% load static %}
+
+<!-- MAIN CONTENT -->
+{% block content %}
+<div class="main">
+  <div 
+    style="display: flex;
+          justify-content: space-between;
+          ">
+  <p>
+    Filter by:
+    <a href="?filter_by=movie" class="link-button filter">Movies</a>
+    <a href="?filter_by=series" class="link-button filter">Series</a>
+    <a href="?filter_by=anime" class="link-button filter">Anime</a>
+    <a href="?filter_by=None" class="link-button filter">All</a>
+  </p>
+    {% if payload.current_filter %}
+    <p style="color: grey">{{payload.current_filter}} : {{payload.results_length}}</p>
+    {% else %}
+    <p style="color: grey">Items : {{payload.results_length}}</p>
+    {% endif %}
+  </div>
+  
+  {% if payload.movies %}
+  <div>
+
+    <div class="link-button"
+    style="display: flex; justify-content: space-around; align-items: center; margin: 10px 0"
+    >
+      {% if payload.movies.has_previous %}
+        <a href="?filter_by={{payload.current_filter}}&page=1"><u>Start</u></a>
+
+        <a href="?filter_by={{payload.current_filter}}&page={{ payload.movies.previous_page_number }}">◀️</a>
+      {% endif %}
+    
+      {{payload.movies.number}} of {{payload.movies.paginator.num_pages}}
+      
+      {% if payload.movies.has_next %}
+        <a href="?filter_by={{payload.current_filter}}&page={{ payload.movies.next_page_number }}">▶️</a>
+      <a href="?filter_by={{payload.current_filter}}&page={{ payload.movies.paginator.num_pages }}"><u>Finish</u></a>
+      {% endif %} 
+    </div>
+
+  </div>
+  {% endif %}
+
+  <div class="movie-items">
+    {% for movie in payload.movies %}
+    <div class="card_link">
+    {% if movie.imagelink|length < 5 %}
+        <div
+          class="card"
+          style="background-image: url('{% static 'images/mulan.jpg' %}');"
+        >
+
+        {% if request.user.is_authenticated and payload.editable %}
+        <div class="modify-card">
+          <a href="#" onclick="confirmDel('{{movie.moviename}}')">🗑️</a>
+          <input type="checkbox" name="select" id="movie-id">
+        </div>
+        {% endif %}
+
+        </div>
+        {% else %}
+        
+        <div
+          class="card"
+          style="background-image: url('{{movie.imagelink}}')"
+        >
+
+          {% if request.user.is_authenticated and payload.editable %}
+          <div class="modify-card">
+            <a href="#" onclick="confirmDel('{{movie.moviename}}')">🗑️</a>
+            <input type="checkbox" name="select" id="movie-id">
+          </div>
+          {% endif %}
+
+        </div>
+        
+        {% endif %}
+
+        <a href="{% url 'select-movie' movie.moviename %}">
+          <div class="card_link_text">
+            <small>{{movie.moviename}}</small>
+          </div>
+        </a>
+      
+      </div>
+    {% empty %}
+    <p class="link-card"
+       style="width: -webkit-fill-available;
+       text-align: center;"
+       >No Movies Here!</p>
+    {% endfor %}
+  </div>
+  
+  {% if payload.movies %}
+  <div>
+
+    <div class="link-button"
+    style="display: flex; justify-content: space-around; align-items: center; margin: 10px 0"
+    >
+      {% if payload.movies.has_previous %}
+        <a href="?filter_by={{payload.current_filter}}&page=1"><u>Start</u></a>
+
+        <a href="?filter_by={{payload.current_filter}}&page={{ payload.movies.previous_page_number }}">◀️</a>
+      {% endif %}
+    
+      {{payload.movies.number}} of {{payload.movies.paginator.num_pages}}
+      
+      {% if payload.movies.has_next %}
+        <a href="?filter_by={{payload.current_filter}}&page={{ payload.movies.next_page_number }}">▶️</a>
+      <a href="?filter_by={{payload.current_filter}}&page={{ payload.movies.paginator.num_pages }}"><u>Finish</u></a>
+      {% endif %} 
+    </div>
+
+  </div>
+  {% endif %}
+
+  <!-- popup -->
+  
+  <div class="link-card" id="confirm-dialog"  
+      style="
+      position: sticky;
+      display: none;
+      bottom: 80px;
+      padding: 10px;
+      min-height: 205px;
+      background-color:rgb(255 170 108);
+      box-shadow: 0px 0px 250px 158px #5a2600;
+      "  
+  >
+    <p class = "flush" style="text-align: center" id="confirm-message"></p>
+
+    <div style="
+        display: flex;
+        justify-content: space-evenly;
+        background-color: #dd5d00;
+        border-radius: 10px;
+        padding: 5px;"
+        class="flush"
+      >
+      <a class="link-button" style="background-color: #00dd54;" onclick="cancelDel()">Cancel</a>
+      <a class="see-more" style="margin: 0; background-color: #cf2028" 
+          id="confirm-button"
+          onclick="flushMessage()"
+          >Confirm</a>
+      </div>
+
+  </div>
+
+</div>
+  
+  <!-- REPEATS FOR ALL OTHER PAGES -->
+<div >
+  <!-- DC/status -->
+  <div class="status" id="turn-dark">  
+
+  {% if request.user.is_authenticated and payload.editable %}
+  <p>{{request.user.username}}'s scraped list</p>
+  {% endif %}
+</div>
+<div class="footer">
+  <!-- FOOTER -->
+  <small>copyright 2022</small>
+  <small>@xmon</small>
+</div>
+</div>
+</main>
+</body>
+<script src="{% static 'js/turndark.js' %}"></script>
+</html>
+{% endblock %}
